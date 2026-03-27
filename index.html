@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Business Bots Solutions — Quick Quote</title>
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Outfit:wght@200;300;400;500;600;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Outfit:wght@200;300;400;500;600;700&family=Noto+Sans+Arabic:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
   <style>
     *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
 
@@ -29,6 +29,7 @@
       --radius-sm:12px;
       --font-display:'Cormorant Garamond', serif;
       --font-body:'Outfit', sans-serif;
+      --font-arabic:'Noto Sans Arabic', sans-serif;
       --transition:background-color .45s ease,color .45s ease,border-color .45s ease,box-shadow .45s ease,transform .35s ease,opacity .35s ease;
     }
 
@@ -40,6 +41,10 @@
       font-family:var(--font-body);
       overflow-x:hidden;
       position:relative;
+    }
+
+    html[dir="rtl"] body {
+      font-family: var(--font-arabic);
     }
 
     .grid-background{
@@ -159,6 +164,14 @@
       justify-content:flex-end;
     }
 
+    .lang-selector{
+      display:flex;
+      flex-wrap:wrap;
+      gap:8px;
+      justify-content:flex-end;
+    }
+
+    .lang-btn,
     .pill{
       display:inline-flex;
       align-items:center;
@@ -171,12 +184,25 @@
       font-size:.82rem;
       text-decoration:none;
       transition:var(--transition);
+      cursor:pointer;
+      font-family:var(--font-body);
     }
 
+    .lang-btn.active{
+      color:#000;
+      background:var(--accent);
+      border-color:var(--accent);
+    }
+
+    .lang-btn:hover,
     .pill:hover{
       border-color:var(--border-hover);
       color:var(--text);
       transform:translateY(-1px);
+    }
+
+    .lang-btn.active:hover{
+      color:#000;
     }
 
     .hero{
@@ -239,6 +265,12 @@
       font-weight:600;
       max-width:780px;
       margin-bottom:18px;
+    }
+
+    html[dir="rtl"] .hero h1{
+      font-family: var(--font-arabic);
+      line-height: 1.15;
+      font-weight: 600;
     }
 
     .hero p{
@@ -311,6 +343,11 @@
       font-size:2.1rem;
       line-height:1;
       margin-bottom:14px;
+    }
+
+    html[dir="rtl"] .quote-big{
+      font-family: var(--font-arabic);
+      line-height: 1.2;
     }
 
     .quote-text{
@@ -422,7 +459,7 @@
       border:1px solid var(--border);
       background:var(--card-2);
       color:var(--text);
-      font-family:var(--font-body);
+      font-family:inherit;
       font-size:.95rem;
       outline:none;
       transition:var(--transition);
@@ -460,6 +497,11 @@
       border-bottom:1.5px solid var(--text3);
       transform:translateY(-60%) rotate(45deg);
       pointer-events:none;
+    }
+
+    html[dir="rtl"] .select-wrap::after{
+      right:auto;
+      left:16px;
     }
 
     .range-grid{
@@ -525,7 +567,7 @@
       cursor:pointer;
       transition:var(--transition);
       border:1px solid transparent;
-      font-family:var(--font-body);
+      font-family:inherit;
       font-size:.9rem;
       font-weight:600;
       letter-spacing:.12em;
@@ -724,6 +766,7 @@
       }
 
       .topbar-actions{ width:100%; justify-content:flex-start; }
+      .lang-selector{ justify-content:flex-start; }
 
       .hero-card,
       .panel,
@@ -760,24 +803,34 @@
           <img src="https://res.cloudinary.com/dxhef6dju/image/upload/v1762604293/nobacklogo_sichw3.png" alt="Business Bots Solutions logo">
         </div>
         <div class="brand-mini-text">
-          <div class="brand-mini-kicker">Quick Quote Interface</div>
-          <div class="brand-mini-title">Business Bots Solutions — Intelligent Automation Estimate</div>
+          <div class="brand-mini-kicker" data-i18n="brand_kicker">Quick Quote Interface</div>
+          <div class="brand-mini-title" data-i18n="brand_title">Business Bots Solutions — Intelligent Automation Estimate</div>
         </div>
       </div>
 
       <div class="topbar-actions">
-        <a class="pill" href="https://businessbots.org" target="_blank" rel="noopener noreferrer">Website</a>
+        <div class="lang-selector" id="langSelector">
+          <button class="lang-btn active" data-lang="en">EN</button>
+          <button class="lang-btn" data-lang="es">ES</button>
+          <button class="lang-btn" data-lang="fr">FR</button>
+          <button class="lang-btn" data-lang="de">DE</button>
+          <button class="lang-btn" data-lang="it">IT</button>
+          <button class="lang-btn" data-lang="af">AF</button>
+          <button class="lang-btn" data-lang="ar">AR</button>
+        </div>
+
+        <a class="pill" href="https://businessbots.org" target="_blank" rel="noopener noreferrer" data-i18n="top_website">Website</a>
         <a class="pill" href="mailto:info@businessbots.org">info@businessbots.org</a>
-        <a class="pill" href="https://wa.me/34666759214" target="_blank" rel="noopener noreferrer">+34 666 75 92 14</a>
+        <a class="pill" href="https://wa.me/34631690524" target="_blank" rel="noopener noreferrer">+34 631 69 05 24</a>
       </div>
     </header>
 
     <section class="hero fade-up delay-1">
       <div class="hero-card">
         <div class="hero-inner">
-          <div class="eyebrow">Automation with Purpose</div>
-          <h1>Request a fast quote for your next automation project.</h1>
-          <p>
+          <div class="eyebrow" data-i18n="eyebrow">Automation with Purpose</div>
+          <h1 data-i18n="hero_title">Request a fast quote for your next automation project.</h1>
+          <p data-i18n="hero_text">
             We help businesses transform complexity into clarity through intelligent automation.
             This interface is designed for potential clients who want a quick first estimate based on service type,
             business context, budget range and implementation needs.
@@ -785,16 +838,16 @@
 
           <div class="hero-points">
             <div class="hero-point">
-              <div class="hero-point-label">Essence</div>
-              <div class="hero-point-value">Clarity before automation</div>
+              <div class="hero-point-label" data-i18n="point_essence_label">Essence</div>
+              <div class="hero-point-value" data-i18n="point_essence_value">Clarity before automation</div>
             </div>
             <div class="hero-point">
-              <div class="hero-point-label">Mission</div>
-              <div class="hero-point-value">Transparent systems with measurable outcomes</div>
+              <div class="hero-point-label" data-i18n="point_mission_label">Mission</div>
+              <div class="hero-point-value" data-i18n="point_mission_value">Transparent systems with measurable outcomes</div>
             </div>
             <div class="hero-point">
-              <div class="hero-point-label">Vision</div>
-              <div class="hero-point-value">Scalable digital transformation in Europe & UAE</div>
+              <div class="hero-point-label" data-i18n="point_vision_label">Vision</div>
+              <div class="hero-point-value" data-i18n="point_vision_value">Scalable digital transformation in Europe & UAE</div>
             </div>
           </div>
         </div>
@@ -802,9 +855,9 @@
 
       <aside class="quote-card fade-up delay-2">
         <div class="quote-top">
-          <div class="quote-kicker">Why this form</div>
-          <div class="quote-big">Fast, clear, strategic.</div>
-          <p class="quote-text">
+          <div class="quote-kicker" data-i18n="quote_kicker">Why this form</div>
+          <div class="quote-big" data-i18n="quote_big">Fast, clear, strategic.</div>
+          <p class="quote-text" data-i18n="quote_text">
             This is not a generic contact form. It filters project intent, service fit and expected scope so the first response can already be useful, realistic and commercially aligned.
           </p>
         </div>
@@ -812,11 +865,11 @@
         <div class="quote-bottom">
           <div class="mini-stat">
             <div class="mini-stat-value">€200+</div>
-            <div class="mini-stat-label">Strategic consulting starting point</div>
+            <div class="mini-stat-label" data-i18n="mini_stat_1">Strategic consulting starting point</div>
           </div>
           <div class="mini-stat">
             <div class="mini-stat-value">€3200+</div>
-            <div class="mini-stat-label">Web / web app projects starting point</div>
+            <div class="mini-stat-label" data-i18n="mini_stat_2">Web / web app projects starting point</div>
           </div>
         </div>
       </aside>
@@ -826,128 +879,88 @@
       <section class="panel fade-up delay-2">
         <div class="panel-head">
           <div class="panel-title-wrap">
-            <h2>Quick Project Estimate</h2>
-            <p class="panel-subtitle">
+            <h2 data-i18n="panel_title">Quick Project Estimate</h2>
+            <p class="panel-subtitle" data-i18n="panel_subtitle">
               Complete the fields below and the WhatsApp button will generate a structured summary with the project brief, desired services and budget expectations.
             </p>
           </div>
-          <div class="panel-tag">Lead Intake</div>
+          <div class="panel-tag" data-i18n="panel_tag">Lead Intake</div>
         </div>
 
         <div class="form-grid">
           <div class="field">
-            <label for="clientName">Full name</label>
-            <input type="text" id="clientName" placeholder="Your full name">
+            <label for="clientName" data-i18n="label_name">Full name</label>
+            <input type="text" id="clientName" data-i18n-placeholder="placeholder_name" placeholder="Your full name">
           </div>
 
           <div class="field">
-            <label for="companyName">Company / brand</label>
-            <input type="text" id="companyName" placeholder="Business name">
+            <label for="companyName" data-i18n="label_company">Company / brand</label>
+            <input type="text" id="companyName" data-i18n-placeholder="placeholder_company" placeholder="Business name">
           </div>
 
           <div class="field">
-            <label for="clientPhone">Phone</label>
-            <input type="tel" id="clientPhone" placeholder="+34 ...">
+            <label for="clientPhone" data-i18n="label_phone">Phone</label>
+            <input type="tel" id="clientPhone" data-i18n-placeholder="placeholder_phone" placeholder="+34 ...">
           </div>
 
           <div class="field">
-            <label for="clientEmail">Email</label>
-            <input type="email" id="clientEmail" placeholder="name@company.com">
+            <label for="clientEmail" data-i18n="label_email">Email</label>
+            <input type="email" id="clientEmail" data-i18n-placeholder="placeholder_email" placeholder="name@company.com">
           </div>
 
           <div class="field">
-            <label for="businessType">Business type</label>
+            <label for="businessType" data-i18n="label_business_type">Business type</label>
             <div class="select-wrap">
-              <select id="businessType">
-                <option value="">— Select —</option>
-                <option>Restaurant / Hospitality</option>
-                <option>Gym / Sports facility</option>
-                <option>Beauty / Wellness</option>
-                <option>Retail</option>
-                <option>Real Estate</option>
-                <option>Travel / Experiences</option>
-                <option>Professional Services</option>
-                <option>Other</option>
-              </select>
+              <select id="businessType"></select>
             </div>
           </div>
 
           <div class="field">
-            <label for="projectGoal">Main objective</label>
+            <label for="projectGoal" data-i18n="label_main_objective">Main objective</label>
             <div class="select-wrap">
-              <select id="projectGoal">
-                <option value="">— Select —</option>
-                <option>Automate customer support</option>
-                <option>Generate more leads</option>
-                <option>Redesign interface / UX</option>
-                <option>Launch a digital product</option>
-                <option>Digitize operations</option>
-                <option>Centralize bookings / orders</option>
-                <option>Improve analytics & tracking</option>
-              </select>
+              <select id="projectGoal"></select>
             </div>
           </div>
 
           <div class="field full">
-            <label>Services of interest</label>
-            <div class="checks">
-              <label class="check"><input type="checkbox" value="Strategic Consulting"><span>Strategic Consulting</span></label>
-              <label class="check"><input type="checkbox" value="Interface Redesign"><span>Interface Redesign</span></label>
-              <label class="check"><input type="checkbox" value="NFC / QR Systems"><span>NFC / QR Systems</span></label>
-              <label class="check"><input type="checkbox" value="Multilingual Chatbots"><span>Multilingual Chatbots</span></label>
-              <label class="check"><input type="checkbox" value="Full Branding"><span>Full Branding</span></label>
-              <label class="check"><input type="checkbox" value="Web Page / Web App"><span>Web Page / Web App</span></label>
+            <label data-i18n="label_services_interest">Services of interest</label>
+            <div class="checks" id="servicesContainer"></div>
+          </div>
+
+          <div class="field">
+            <label for="timeline" data-i18n="label_timeline">Desired timeline</label>
+            <div class="select-wrap">
+              <select id="timeline"></select>
             </div>
           </div>
 
           <div class="field">
-            <label for="timeline">Desired timeline</label>
+            <label for="projectStage" data-i18n="label_stage">Current stage</label>
             <div class="select-wrap">
-              <select id="timeline">
-                <option value="">— Select —</option>
-                <option>As soon as possible</option>
-                <option>Within 2 weeks</option>
-                <option>Within 1 month</option>
-                <option>Within 2–3 months</option>
-                <option>Just exploring</option>
-              </select>
-            </div>
-          </div>
-
-          <div class="field">
-            <label for="projectStage">Current stage</label>
-            <div class="select-wrap">
-              <select id="projectStage">
-                <option value="">— Select —</option>
-                <option>Only an idea</option>
-                <option>Clear scope defined</option>
-                <option>Existing business, needs improvement</option>
-                <option>Existing system, needs redesign</option>
-                <option>Urgent operational problem</option>
-              </select>
+              <select id="projectStage"></select>
             </div>
           </div>
 
           <div class="field full">
-            <label>Estimated budget range (€)</label>
+            <label data-i18n="label_budget">Estimated budget range (€)</label>
             <div class="range-grid">
-              <input type="number" id="budgetMin" min="0" step="100" placeholder="Min. budget">
-              <input type="number" id="budgetMax" min="0" step="100" placeholder="Max. budget">
+              <input type="number" id="budgetMin" min="0" step="100" data-i18n-placeholder="placeholder_budget_min" placeholder="Min. budget">
+              <input type="number" id="budgetMax" min="0" step="100" data-i18n-placeholder="placeholder_budget_max" placeholder="Max. budget">
             </div>
           </div>
 
           <div class="field full">
-            <label for="projectDetails">Project details</label>
-            <textarea id="projectDetails" placeholder="Explain briefly what you need, what is not working, what channels you use now, and what kind of result you expect."></textarea>
+            <label for="projectDetails" data-i18n="label_details">Project details</label>
+            <textarea id="projectDetails" data-i18n-placeholder="placeholder_details" placeholder="Explain briefly what you need, what is not working, what channels you use now, and what kind of result you expect."></textarea>
           </div>
         </div>
 
         <div class="actions">
-          <a href="https://wa.me/34666759214" target="_blank" rel="noopener noreferrer" class="btn btn-primary" id="waBtn">Send via WhatsApp</a>
-          <a href="mailto:info@businessbots.org" class="btn btn-secondary" id="mailBtn">Send via Email</a>
+          <a href="https://wa.me/34631690524" target="_blank" rel="noopener noreferrer" class="btn btn-primary" id="waBtn" data-i18n="btn_whatsapp">Send via WhatsApp</a>
+          <a href="mailto:info@businessbots.org" class="btn btn-secondary" id="mailBtn" data-i18n="btn_email">Send via Email</a>
         </div>
 
-        <div class="note">
+        <div class="note" data-i18n="note_text">
           Business Bots Solutions works with a systemic approach: diagnosis first, then implementation. This quick quote helps identify whether the request fits strategic consulting, interface redesign, chatbots, web systems, branding, or a custom combined solution.
         </div>
       </section>
@@ -956,66 +969,66 @@
         <section class="panel fade-up delay-3">
           <div class="panel-head">
             <div class="panel-title-wrap">
-              <h2>Reference Services</h2>
-              <p class="panel-subtitle">Base ranges extracted from the current Business Bots service structure.</p>
+              <h2 data-i18n="ref_title">Reference Services</h2>
+              <p class="panel-subtitle" data-i18n="ref_subtitle">Base ranges extracted from the current Business Bots service structure.</p>
             </div>
           </div>
 
           <div class="service-grid">
             <article class="service-card">
               <div class="service-top">
-                <div class="service-name">Strategic Consulting</div>
-                <div class="service-price">from €200</div>
+                <div class="service-name" data-i18n="service_consulting_name">Strategic Consulting</div>
+                <div class="service-price" data-i18n="service_consulting_price">from €200</div>
               </div>
-              <div class="service-desc">Clear process roadmap and strategic direction.</div>
+              <div class="service-desc" data-i18n="service_consulting_desc">Clear process roadmap and strategic direction.</div>
             </article>
 
             <article class="service-card">
               <div class="service-top">
-                <div class="service-name">Interface Redesign</div>
-                <div class="service-price">from €899</div>
+                <div class="service-name" data-i18n="service_ui_name">Interface Redesign</div>
+                <div class="service-price" data-i18n="service_ui_price">from €899</div>
               </div>
-              <div class="service-desc">Conversion-focused UI/UX optimization.</div>
+              <div class="service-desc" data-i18n="service_ui_desc">Conversion-focused UI/UX optimization.</div>
             </article>
 
             <article class="service-card">
               <div class="service-top">
-                <div class="service-name">NFC / QR Systems</div>
-                <div class="service-price">€199–499</div>
+                <div class="service-name" data-i18n="service_nfc_name">NFC / QR Systems</div>
+                <div class="service-price" data-i18n="service_nfc_price">€199–499</div>
               </div>
-              <div class="service-desc">Instant contactless access and real-world digital triggers.</div>
+              <div class="service-desc" data-i18n="service_nfc_desc">Instant contactless access and real-world digital triggers.</div>
             </article>
 
             <article class="service-card">
               <div class="service-top">
-                <div class="service-name">Multilingual Chatbots</div>
-                <div class="service-price">from €1500</div>
+                <div class="service-name" data-i18n="service_chatbot_name">Multilingual Chatbots</div>
+                <div class="service-price" data-i18n="service_chatbot_price">from €1500</div>
               </div>
-              <div class="service-desc">24/7 lead capture, support and automation logic.</div>
+              <div class="service-desc" data-i18n="service_chatbot_desc">24/7 lead capture, support and automation logic.</div>
             </article>
 
             <article class="service-card">
               <div class="service-top">
-                <div class="service-name">Full Branding</div>
-                <div class="service-price">from €2500</div>
+                <div class="service-name" data-i18n="service_brand_name">Full Branding</div>
+                <div class="service-price" data-i18n="service_brand_price">from €2500</div>
               </div>
-              <div class="service-desc">Cohesive, data-driven brand identity system.</div>
+              <div class="service-desc" data-i18n="service_brand_desc">Cohesive, data-driven brand identity system.</div>
             </article>
 
             <article class="service-card">
               <div class="service-top">
-                <div class="service-name">Web Page / Web App</div>
-                <div class="service-price">from €3200</div>
+                <div class="service-name" data-i18n="service_web_name">Web Page / Web App</div>
+                <div class="service-price" data-i18n="service_web_price">from €3200</div>
               </div>
-              <div class="service-desc">Analytics, management and digital infrastructure.</div>
+              <div class="service-desc" data-i18n="service_web_desc">Analytics, management and digital infrastructure.</div>
             </article>
 
             <article class="service-card">
               <div class="service-top">
-                <div class="service-name">Custom Project Solution</div>
-                <div class="service-price">under quote</div>
+                <div class="service-name" data-i18n="service_custom_name">Custom Project Solution</div>
+                <div class="service-price" data-i18n="service_custom_price">under quote</div>
               </div>
-              <div class="service-desc">Fusion of multiple services into one full project system.</div>
+              <div class="service-desc" data-i18n="service_custom_desc">Fusion of multiple services into one full project system.</div>
             </article>
           </div>
         </section>
@@ -1023,8 +1036,8 @@
         <section class="panel fade-up delay-4">
           <div class="panel-head">
             <div class="panel-title-wrap">
-              <h2>How the process works</h2>
-              <p class="panel-subtitle">Same logic as the brand system: confusion → clarity → automation.</p>
+              <h2 data-i18n="process_title">How the process works</h2>
+              <p class="panel-subtitle" data-i18n="process_subtitle">Same logic as the brand system: confusion → clarity → automation.</p>
             </div>
           </div>
 
@@ -1032,32 +1045,32 @@
             <div class="step">
               <div class="step-num">1</div>
               <div>
-                <h3>Diagnosis</h3>
-                <p>We identify the real operational problem, channels, friction points and business objective.</p>
+                <h3 data-i18n="step1_title">Diagnosis</h3>
+                <p data-i18n="step1_text">We identify the real operational problem, channels, friction points and business objective.</p>
               </div>
             </div>
 
             <div class="step">
               <div class="step-num">2</div>
               <div>
-                <h3>Service Fit</h3>
-                <p>We map whether the request needs consulting, interface work, chatbot automation, app development or a combined stack.</p>
+                <h3 data-i18n="step2_title">Service Fit</h3>
+                <p data-i18n="step2_text">We map whether the request needs consulting, interface work, chatbot automation, app development or a combined stack.</p>
               </div>
             </div>
 
             <div class="step">
               <div class="step-num">3</div>
               <div>
-                <h3>Estimate</h3>
-                <p>A fast first commercial frame is returned with realistic scope and pricing logic.</p>
+                <h3 data-i18n="step3_title">Estimate</h3>
+                <p data-i18n="step3_text">A fast first commercial frame is returned with realistic scope and pricing logic.</p>
               </div>
             </div>
 
             <div class="step">
               <div class="step-num">4</div>
               <div>
-                <h3>Execution</h3>
-                <p>If aligned, the project moves into activation, build and optimization.</p>
+                <h3 data-i18n="step4_title">Execution</h3>
+                <p data-i18n="step4_text">If aligned, the project moves into activation, build and optimization.</p>
               </div>
             </div>
           </div>
@@ -1066,9 +1079,9 @@
     </section>
 
     <footer class="footer fade-up delay-4">
-      <div class="footer-copy">© Business Bots Solutions 2026 — Automation with purpose, clarity as principle.</div>
+      <div class="footer-copy" data-i18n="footer_copy">© Business Bots Solutions 2026 — Automation with purpose, clarity as principle.</div>
       <div class="footer-links">
-        <a href="https://businessbots.org" target="_blank" rel="noopener noreferrer">Website</a>
+        <a href="https://businessbots.org" target="_blank" rel="noopener noreferrer" data-i18n="top_website">Website</a>
         <a href="https://www.linkedin.com/in/businessbots/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
         <a href="https://www.instagram.com/businessbot.s?igsh=ZmVhNzNlYWNycW4z" target="_blank" rel="noopener noreferrer">Instagram</a>
       </div>
@@ -1076,11 +1089,962 @@
   </main>
 
   <script>
+    const serviceCatalog = {
+      consulting: {
+        prices: "from €200",
+        keys: {
+          en: "Strategic Consulting",
+          es: "Consultoría Estratégica",
+          fr: "Conseil Stratégique",
+          de: "Strategische Beratung",
+          it: "Consulenza Strategica",
+          af: "Strategiese Konsultasie",
+          ar: "استشارة استراتيجية"
+        }
+      },
+      ui: {
+        prices: "from €899",
+        keys: {
+          en: "Interface Redesign",
+          es: "Rediseño de Interfaz",
+          fr: "Refonte d’Interface",
+          de: "Interface-Redesign",
+          it: "Restyling Interfaccia",
+          af: "Koppelvlak Herontwerp",
+          ar: "إعادة تصميم الواجهة"
+        }
+      },
+      nfc: {
+        prices: "€199–499",
+        keys: {
+          en: "NFC / QR Systems",
+          es: "Sistemas NFC / QR",
+          fr: "Systèmes NFC / QR",
+          de: "NFC- / QR-Systeme",
+          it: "Sistemi NFC / QR",
+          af: "NFC / QR-stelsels",
+          ar: "أنظمة NFC / QR"
+        }
+      },
+      chatbot: {
+        prices: "from €1500",
+        keys: {
+          en: "Multilingual Chatbots",
+          es: "Chatbots Multilingües",
+          fr: "Chatbots Multilingues",
+          de: "Mehrsprachige Chatbots",
+          it: "Chatbot Multilingua",
+          af: "Meertalige Kletsbotte",
+          ar: "روبوتات دردشة متعددة اللغات"
+        }
+      },
+      brand: {
+        prices: "from €2500",
+        keys: {
+          en: "Full Branding",
+          es: "Branding Completo",
+          fr: "Branding Complet",
+          de: "Komplettes Branding",
+          it: "Branding Completo",
+          af: "Volledige Handelsmerkidentiteit",
+          ar: "هوية علامة تجارية كاملة"
+        }
+      },
+      web: {
+        prices: "from €3200",
+        keys: {
+          en: "Web Page / Web App",
+          es: "Página Web / Web App",
+          fr: "Site Web / Application Web",
+          de: "Webseite / Web-App",
+          it: "Pagina Web / Web App",
+          af: "Webblad / Webtoep",
+          ar: "صفحة ويب / تطبيق ويب"
+        }
+      },
+      custom: {
+        prices: "under quote",
+        keys: {
+          en: "Custom Project Solution",
+          es: "Solución de Proyecto Personalizada",
+          fr: "Solution Projet Sur Mesure",
+          de: "Individuelle Projektlösung",
+          it: "Soluzione Progetto Personalizzata",
+          af: "Pasgemaakte Projekoplossing",
+          ar: "حل مشروع مخصص"
+        }
+      }
+    };
+
+    const servicesByObjective = {
+      support: ["chatbot", "consulting", "web"],
+      leads: ["chatbot", "web", "brand", "consulting"],
+      redesign: ["ui", "brand", "web"],
+      product: ["web", "ui", "brand", "consulting"],
+      operations: ["consulting", "web", "nfc", "chatbot"],
+      bookings: ["web", "chatbot", "nfc", "consulting"],
+      analytics: ["consulting", "web", "chatbot"]
+    };
+
+    const translations = {
+      en: {
+        dir: "ltr",
+        brand_kicker: "Quick Quote Interface",
+        brand_title: "Business Bots Solutions — Intelligent Automation Estimate",
+        top_website: "Website",
+        eyebrow: "Automation with Purpose",
+        hero_title: "Request a fast quote for your next automation project.",
+        hero_text: "We help businesses transform complexity into clarity through intelligent automation. This interface is designed for potential clients who want a quick first estimate based on service type, business context, budget range and implementation needs.",
+        point_essence_label: "Essence",
+        point_essence_value: "Clarity before automation",
+        point_mission_label: "Mission",
+        point_mission_value: "Transparent systems with measurable outcomes",
+        point_vision_label: "Vision",
+        point_vision_value: "Scalable digital transformation in Europe & UAE",
+        quote_kicker: "Why this form",
+        quote_big: "Fast, clear, strategic.",
+        quote_text: "This is not a generic contact form. It filters project intent, service fit and expected scope so the first response can already be useful, realistic and commercially aligned.",
+        mini_stat_1: "Strategic consulting starting point",
+        mini_stat_2: "Web / web app projects starting point",
+        panel_title: "Quick Project Estimate",
+        panel_subtitle: "Complete the fields below and the WhatsApp button will generate a structured summary with the project brief, desired services and budget expectations.",
+        panel_tag: "Lead Intake",
+        label_name: "Full name",
+        label_company: "Company / brand",
+        label_phone: "Phone",
+        label_email: "Email",
+        label_business_type: "Business type",
+        label_main_objective: "Main objective",
+        label_services_interest: "Services of interest",
+        label_timeline: "Desired timeline",
+        label_stage: "Current stage",
+        label_budget: "Estimated budget range (€)",
+        label_details: "Project details",
+        placeholder_name: "Your full name",
+        placeholder_company: "Business name",
+        placeholder_phone: "+34 ...",
+        placeholder_email: "name@company.com",
+        placeholder_budget_min: "Min. budget",
+        placeholder_budget_max: "Max. budget",
+        placeholder_details: "Explain briefly what you need, what is not working, what channels you use now, and what kind of result you expect.",
+        btn_whatsapp: "Send via WhatsApp",
+        btn_email: "Send via Email",
+        note_text: "Business Bots Solutions works with a systemic approach: diagnosis first, then implementation. This quick quote helps identify whether the request fits strategic consulting, interface redesign, chatbots, web systems, branding, or a custom combined solution.",
+        ref_title: "Reference Services",
+        ref_subtitle: "Base ranges extracted from the current Business Bots service structure.",
+        service_consulting_name: "Strategic Consulting",
+        service_consulting_price: "from €200",
+        service_consulting_desc: "Clear process roadmap and strategic direction.",
+        service_ui_name: "Interface Redesign",
+        service_ui_price: "from €899",
+        service_ui_desc: "Conversion-focused UI/UX optimization.",
+        service_nfc_name: "NFC / QR Systems",
+        service_nfc_price: "€199–499",
+        service_nfc_desc: "Instant contactless access and real-world digital triggers.",
+        service_chatbot_name: "Multilingual Chatbots",
+        service_chatbot_price: "from €1500",
+        service_chatbot_desc: "24/7 lead capture, support and automation logic.",
+        service_brand_name: "Full Branding",
+        service_brand_price: "from €2500",
+        service_brand_desc: "Cohesive, data-driven brand identity system.",
+        service_web_name: "Web Page / Web App",
+        service_web_price: "from €3200",
+        service_web_desc: "Analytics, management and digital infrastructure.",
+        service_custom_name: "Custom Project Solution",
+        service_custom_price: "under quote",
+        service_custom_desc: "Fusion of multiple services into one full project system.",
+        process_title: "How the process works",
+        process_subtitle: "Same logic as the brand system: confusion → clarity → automation.",
+        step1_title: "Diagnosis",
+        step1_text: "We identify the real operational problem, channels, friction points and business objective.",
+        step2_title: "Service Fit",
+        step2_text: "We map whether the request needs consulting, interface work, chatbot automation, app development or a combined stack.",
+        step3_title: "Estimate",
+        step3_text: "A fast first commercial frame is returned with realistic scope and pricing logic.",
+        step4_title: "Execution",
+        step4_text: "If aligned, the project moves into activation, build and optimization.",
+        footer_copy: "© Business Bots Solutions 2026 — Automation with purpose, clarity as principle.",
+        select_default: "— Select —",
+        business_types: ["— Select —","Restaurant / Hospitality","Gym / Sports facility","Beauty / Wellness","Retail","Real Estate","Travel / Experiences","Professional Services","Other"],
+        project_goals: [
+          { value: "", label: "— Select —" },
+          { value: "support", label: "Automate customer support" },
+          { value: "leads", label: "Generate more leads" },
+          { value: "redesign", label: "Redesign interface / UX" },
+          { value: "product", label: "Launch a digital product" },
+          { value: "operations", label: "Digitize operations" },
+          { value: "bookings", label: "Centralize bookings / orders" },
+          { value: "analytics", label: "Improve analytics & tracking" }
+        ],
+        timelines: ["— Select —","As soon as possible","Within 2 weeks","Within 1 month","Within 2–3 months","Just exploring"],
+        stages: ["— Select —","Only an idea","Clear scope defined","Existing business, needs improvement","Existing system, needs redesign","Urgent operational problem"],
+        wa_greeting: "Hi Business Bots Solutions, I want a quick project estimate.",
+        wa_title: "QUICK QUOTE REQUEST",
+        wa_name: "Name",
+        wa_company: "Company",
+        wa_phone: "Phone",
+        wa_email: "Email",
+        wa_business_type: "Business type",
+        wa_goal: "Main objective",
+        wa_services: "Services of interest",
+        wa_timeline: "Timeline",
+        wa_stage: "Current stage",
+        wa_budget: "Budget range",
+        wa_details: "Project details",
+        wa_not_specified: "Not specified",
+        email_subject: "Quick Quote Request — Business Bots Solutions"
+      },
+
+      es: {
+        dir: "ltr",
+        brand_kicker: "Interfaz de Presupuesto Rápido",
+        brand_title: "Business Bots Solutions — Estimación Inteligente de Automatización",
+        top_website: "Web",
+        eyebrow: "Automatización con Propósito",
+        hero_title: "Solicita un presupuesto rápido para tu próximo proyecto de automatización.",
+        hero_text: "Ayudamos a las empresas a transformar complejidad en claridad mediante automatización inteligente. Esta interfaz está diseñada para clientes potenciales que quieren una primera estimación rápida según tipo de servicio, contexto del negocio, rango de presupuesto y necesidades de implementación.",
+        point_essence_label: "Esencia",
+        point_essence_value: "Claridad antes de automatizar",
+        point_mission_label: "Misión",
+        point_mission_value: "Sistemas transparentes con resultados medibles",
+        point_vision_label: "Visión",
+        point_vision_value: "Transformación digital escalable en Europa y EAU",
+        quote_kicker: "Por qué este formulario",
+        quote_big: "Rápido, claro, estratégico.",
+        quote_text: "No es un formulario genérico. Filtra intención del proyecto, encaje de servicio y alcance esperado para que la primera respuesta ya sea útil, realista y comercialmente alineada.",
+        mini_stat_1: "Punto de partida en consultoría estratégica",
+        mini_stat_2: "Punto de partida en web / web app",
+        panel_title: "Estimación Rápida del Proyecto",
+        panel_subtitle: "Completa los campos y el botón de WhatsApp generará un resumen estructurado con el brief, los servicios deseados y las expectativas de presupuesto.",
+        panel_tag: "Captación",
+        label_name: "Nombre completo",
+        label_company: "Empresa / marca",
+        label_phone: "Teléfono",
+        label_email: "Email",
+        label_business_type: "Tipo de negocio",
+        label_main_objective: "Objetivo principal",
+        label_services_interest: "Servicios de interés",
+        label_timeline: "Plazo deseado",
+        label_stage: "Fase actual",
+        label_budget: "Rango de presupuesto estimado (€)",
+        label_details: "Detalles del proyecto",
+        placeholder_name: "Tu nombre completo",
+        placeholder_company: "Nombre del negocio",
+        placeholder_phone: "+34 ...",
+        placeholder_email: "nombre@empresa.com",
+        placeholder_budget_min: "Presupuesto mín.",
+        placeholder_budget_max: "Presupuesto máx.",
+        placeholder_details: "Explica brevemente qué necesitas, qué no funciona, qué canales utilizas ahora y qué resultado esperas.",
+        btn_whatsapp: "Enviar por WhatsApp",
+        btn_email: "Enviar por Email",
+        note_text: "Business Bots Solutions trabaja con un enfoque sistémico: primero diagnóstico, después implementación. Este presupuesto rápido ayuda a identificar si la solicitud encaja en consultoría estratégica, rediseño de interfaz, chatbots, sistemas web, branding o una solución combinada personalizada.",
+        ref_title: "Servicios de Referencia",
+        ref_subtitle: "Rangos base extraídos de la estructura actual de servicios de Business Bots.",
+        service_consulting_name: "Consultoría Estratégica",
+        service_consulting_price: "desde €200",
+        service_consulting_desc: "Hoja de ruta clara y dirección estratégica.",
+        service_ui_name: "Rediseño de Interfaz",
+        service_ui_price: "desde €899",
+        service_ui_desc: "Optimización UI/UX enfocada en conversión.",
+        service_nfc_name: "Sistemas NFC / QR",
+        service_nfc_price: "€199–499",
+        service_nfc_desc: "Acceso instantáneo sin contacto y activadores digitales reales.",
+        service_chatbot_name: "Chatbots Multilingües",
+        service_chatbot_price: "desde €1500",
+        service_chatbot_desc: "Captación de leads 24/7, soporte y lógica de automatización.",
+        service_brand_name: "Branding Completo",
+        service_brand_price: "desde €2500",
+        service_brand_desc: "Sistema de identidad de marca cohesivo y data-driven.",
+        service_web_name: "Página Web / Web App",
+        service_web_price: "desde €3200",
+        service_web_desc: "Analítica, gestión e infraestructura digital.",
+        service_custom_name: "Solución de Proyecto Personalizada",
+        service_custom_price: "bajo presupuesto",
+        service_custom_desc: "Fusión de varios servicios en un único sistema de proyecto.",
+        process_title: "Cómo funciona el proceso",
+        process_subtitle: "La misma lógica del sistema de marca: confusión → claridad → automatización.",
+        step1_title: "Diagnóstico",
+        step1_text: "Identificamos el problema operativo real, los canales, los puntos de fricción y el objetivo de negocio.",
+        step2_title: "Encaje de Servicio",
+        step2_text: "Definimos si la solicitud necesita consultoría, interfaz, automatización con chatbot, desarrollo app o un stack combinado.",
+        step3_title: "Estimación",
+        step3_text: "Se devuelve un primer marco comercial rápido con alcance y lógica de precio realistas.",
+        step4_title: "Ejecución",
+        step4_text: "Si hay alineación, el proyecto pasa a activación, desarrollo y optimización.",
+        footer_copy: "© Business Bots Solutions 2026 — Automatización con propósito, claridad como principio.",
+        select_default: "— Selecciona —",
+        business_types: ["— Selecciona —","Restaurante / Hostelería","Gimnasio / Instalación deportiva","Belleza / Bienestar","Retail","Inmobiliaria","Viajes / Experiencias","Servicios profesionales","Otro"],
+        project_goals: [
+          { value: "", label: "— Selecciona —" },
+          { value: "support", label: "Automatizar atención al cliente" },
+          { value: "leads", label: "Generar más leads" },
+          { value: "redesign", label: "Rediseñar interfaz / UX" },
+          { value: "product", label: "Lanzar un producto digital" },
+          { value: "operations", label: "Digitalizar operaciones" },
+          { value: "bookings", label: "Centralizar reservas / pedidos" },
+          { value: "analytics", label: "Mejorar analítica y tracking" }
+        ],
+        timelines: ["— Selecciona —","Lo antes posible","En 2 semanas","En 1 mes","En 2–3 meses","Solo explorando"],
+        stages: ["— Selecciona —","Solo una idea","Alcance definido","Negocio existente, necesita mejora","Sistema existente, necesita rediseño","Problema operativo urgente"],
+        wa_greeting: "Hola Business Bots Solutions, quiero una estimación rápida para mi proyecto.",
+        wa_title: "SOLICITUD DE PRESUPUESTO RÁPIDO",
+        wa_name: "Nombre",
+        wa_company: "Empresa",
+        wa_phone: "Teléfono",
+        wa_email: "Email",
+        wa_business_type: "Tipo de negocio",
+        wa_goal: "Objetivo principal",
+        wa_services: "Servicios de interés",
+        wa_timeline: "Plazo",
+        wa_stage: "Fase actual",
+        wa_budget: "Rango de presupuesto",
+        wa_details: "Detalles del proyecto",
+        wa_not_specified: "No especificado",
+        email_subject: "Solicitud de Presupuesto Rápido — Business Bots Solutions"
+      },
+
+      fr: {
+        dir: "ltr",
+        brand_kicker: "Interface de Devis Rapide",
+        brand_title: "Business Bots Solutions — Estimation Intelligente d’Automatisation",
+        top_website: "Site Web",
+        eyebrow: "Automatisation avec Intention",
+        hero_title: "Demandez un devis rapide pour votre prochain projet d’automatisation.",
+        hero_text: "Nous aidons les entreprises à transformer la complexité en clarté grâce à l’automatisation intelligente. Cette interface est conçue pour les prospects qui souhaitent une première estimation rapide selon le type de service, le contexte business, la fourchette de budget et les besoins d’implémentation.",
+        point_essence_label: "Essence",
+        point_essence_value: "La clarté avant l’automatisation",
+        point_mission_label: "Mission",
+        point_mission_value: "Des systèmes transparents avec des résultats mesurables",
+        point_vision_label: "Vision",
+        point_vision_value: "Une transformation digitale évolutive en Europe et aux Émirats",
+        quote_kicker: "Pourquoi ce formulaire",
+        quote_big: "Rapide, clair, stratégique.",
+        quote_text: "Ce n’est pas un simple formulaire de contact. Il filtre l’intention du projet, l’adéquation du service et la portée attendue afin que la première réponse soit déjà utile, réaliste et alignée commercialement.",
+        mini_stat_1: "Point de départ du conseil stratégique",
+        mini_stat_2: "Point de départ des projets web / web app",
+        panel_title: "Estimation Rapide du Projet",
+        panel_subtitle: "Complétez les champs ci-dessous et le bouton WhatsApp générera un résumé structuré avec le brief, les services souhaités et les attentes budgétaires.",
+        panel_tag: "Qualification",
+        label_name: "Nom complet",
+        label_company: "Entreprise / marque",
+        label_phone: "Téléphone",
+        label_email: "Email",
+        label_business_type: "Type d’activité",
+        label_main_objective: "Objectif principal",
+        label_services_interest: "Services souhaités",
+        label_timeline: "Délai souhaité",
+        label_stage: "Phase actuelle",
+        label_budget: "Fourchette de budget estimée (€)",
+        label_details: "Détails du projet",
+        placeholder_name: "Votre nom complet",
+        placeholder_company: "Nom de l’entreprise",
+        placeholder_phone: "+33 ...",
+        placeholder_email: "nom@entreprise.com",
+        placeholder_budget_min: "Budget min.",
+        placeholder_budget_max: "Budget max.",
+        placeholder_details: "Expliquez brièvement ce dont vous avez besoin, ce qui ne fonctionne pas, les canaux utilisés actuellement et le résultat attendu.",
+        btn_whatsapp: "Envoyer via WhatsApp",
+        btn_email: "Envoyer par Email",
+        note_text: "Business Bots Solutions suit une approche systémique : diagnostic d’abord, implémentation ensuite. Ce devis rapide aide à identifier si la demande correspond au conseil stratégique, à la refonte d’interface, aux chatbots, aux systèmes web, au branding ou à une solution combinée sur mesure.",
+        ref_title: "Services de Référence",
+        ref_subtitle: "Fourchettes de base extraites de la structure actuelle des services Business Bots.",
+        service_consulting_name: "Conseil Stratégique",
+        service_consulting_price: "à partir de €200",
+        service_consulting_desc: "Feuille de route claire et direction stratégique.",
+        service_ui_name: "Refonte d’Interface",
+        service_ui_price: "à partir de €899",
+        service_ui_desc: "Optimisation UI/UX orientée conversion.",
+        service_nfc_name: "Systèmes NFC / QR",
+        service_nfc_price: "€199–499",
+        service_nfc_desc: "Accès instantané sans contact et déclencheurs digitaux réels.",
+        service_chatbot_name: "Chatbots Multilingues",
+        service_chatbot_price: "à partir de €1500",
+        service_chatbot_desc: "Génération de leads 24/7, support et logique d’automatisation.",
+        service_brand_name: "Branding Complet",
+        service_brand_price: "à partir de €2500",
+        service_brand_desc: "Système d’identité de marque cohérent et piloté par la donnée.",
+        service_web_name: "Site Web / Application Web",
+        service_web_price: "à partir de €3200",
+        service_web_desc: "Analytique, gestion et infrastructure digitale.",
+        service_custom_name: "Solution Projet Sur Mesure",
+        service_custom_price: "sur devis",
+        service_custom_desc: "Fusion de plusieurs services dans un système de projet complet.",
+        process_title: "Comment fonctionne le processus",
+        process_subtitle: "La même logique que le système de marque : confusion → clarté → automatisation.",
+        step1_title: "Diagnostic",
+        step1_text: "Nous identifions le vrai problème opérationnel, les canaux, les points de friction et l’objectif business.",
+        step2_title: "Adéquation du Service",
+        step2_text: "Nous déterminons si la demande nécessite du conseil, du design d’interface, de l’automatisation par chatbot, du développement applicatif ou un stack combiné.",
+        step3_title: "Estimation",
+        step3_text: "Un premier cadre commercial rapide est renvoyé avec une portée et une logique tarifaire réalistes.",
+        step4_title: "Exécution",
+        step4_text: "Si tout est aligné, le projet passe à l’activation, au build et à l’optimisation.",
+        footer_copy: "© Business Bots Solutions 2026 — L’automatisation avec intention, la clarté comme principe.",
+        select_default: "— Sélectionnez —",
+        business_types: ["— Sélectionnez —","Restaurant / Hôtellerie","Salle de sport / Installation sportive","Beauté / Bien-être","Retail","Immobilier","Voyages / Expériences","Services professionnels","Autre"],
+        project_goals: [
+          { value: "", label: "— Sélectionnez —" },
+          { value: "support", label: "Automatiser le support client" },
+          { value: "leads", label: "Générer plus de leads" },
+          { value: "redesign", label: "Refondre l’interface / UX" },
+          { value: "product", label: "Lancer un produit digital" },
+          { value: "operations", label: "Digitaliser les opérations" },
+          { value: "bookings", label: "Centraliser réservations / commandes" },
+          { value: "analytics", label: "Améliorer l’analytics et le tracking" }
+        ],
+        timelines: ["— Sélectionnez —","Dès que possible","Sous 2 semaines","Sous 1 mois","Sous 2–3 mois","Simple exploration"],
+        stages: ["— Sélectionnez —","Seulement une idée","Portée déjà définie","Business existant à améliorer","Système existant à refondre","Problème opérationnel urgent"],
+        wa_greeting: "Bonjour Business Bots Solutions, je souhaite une estimation rapide pour mon projet.",
+        wa_title: "DEMANDE DE DEVIS RAPIDE",
+        wa_name: "Nom",
+        wa_company: "Entreprise",
+        wa_phone: "Téléphone",
+        wa_email: "Email",
+        wa_business_type: "Type d’activité",
+        wa_goal: "Objectif principal",
+        wa_services: "Services souhaités",
+        wa_timeline: "Délai",
+        wa_stage: "Phase actuelle",
+        wa_budget: "Fourchette de budget",
+        wa_details: "Détails du projet",
+        wa_not_specified: "Non spécifié",
+        email_subject: "Demande de Devis Rapide — Business Bots Solutions"
+      },
+
+      de: {
+        dir: "ltr",
+        brand_kicker: "Schnellangebots-Oberfläche",
+        brand_title: "Business Bots Solutions — Intelligente Automatisierungs-Einschätzung",
+        top_website: "Webseite",
+        eyebrow: "Automatisierung mit Sinn",
+        hero_title: "Fordern Sie ein schnelles Angebot für Ihr nächstes Automatisierungsprojekt an.",
+        hero_text: "Wir helfen Unternehmen dabei, Komplexität durch intelligente Automatisierung in Klarheit zu verwandeln. Diese Oberfläche ist für Interessenten gedacht, die eine schnelle Ersteinschätzung anhand von Serviceart, Geschäftskontext, Budgetrahmen und Implementierungsbedarf wünschen.",
+        point_essence_label: "Essenz",
+        point_essence_value: "Klarheit vor Automatisierung",
+        point_mission_label: "Mission",
+        point_mission_value: "Transparente Systeme mit messbaren Ergebnissen",
+        point_vision_label: "Vision",
+        point_vision_value: "Skalierbare digitale Transformation in Europa und den VAE",
+        quote_kicker: "Warum dieses Formular",
+        quote_big: "Schnell, klar, strategisch.",
+        quote_text: "Dies ist kein generisches Kontaktformular. Es filtert Projektabsicht, Service-Fit und erwarteten Umfang, damit die erste Antwort bereits nützlich, realistisch und kommerziell sinnvoll ist.",
+        mini_stat_1: "Einstiegspunkt Strategieberatung",
+        mini_stat_2: "Einstiegspunkt Web- / Web-App-Projekte",
+        panel_title: "Schnelle Projekteinschätzung",
+        panel_subtitle: "Füllen Sie die Felder aus und der WhatsApp-Button erstellt eine strukturierte Zusammenfassung mit Briefing, gewünschten Services und Budgeterwartungen.",
+        panel_tag: "Lead Intake",
+        label_name: "Vollständiger Name",
+        label_company: "Unternehmen / Marke",
+        label_phone: "Telefon",
+        label_email: "E-Mail",
+        label_business_type: "Geschäftsart",
+        label_main_objective: "Hauptziel",
+        label_services_interest: "Interessante Services",
+        label_timeline: "Gewünschter Zeitrahmen",
+        label_stage: "Aktueller Stand",
+        label_budget: "Geschätzter Budgetrahmen (€)",
+        label_details: "Projektdetails",
+        placeholder_name: "Ihr vollständiger Name",
+        placeholder_company: "Name des Unternehmens",
+        placeholder_phone: "+49 ...",
+        placeholder_email: "name@firma.com",
+        placeholder_budget_min: "Mindestbudget",
+        placeholder_budget_max: "Maximalbudget",
+        placeholder_details: "Beschreiben Sie kurz, was Sie brauchen, was aktuell nicht funktioniert, welche Kanäle Sie nutzen und welches Ergebnis Sie erwarten.",
+        btn_whatsapp: "Per WhatsApp senden",
+        btn_email: "Per E-Mail senden",
+        note_text: "Business Bots Solutions arbeitet mit einem systemischen Ansatz: zuerst Diagnose, dann Implementierung. Dieses Schnellangebot hilft zu erkennen, ob die Anfrage zu Strategieberatung, Interface-Redesign, Chatbots, Websystemen, Branding oder einer individuellen Kombinationslösung passt.",
+        ref_title: "Referenz-Services",
+        ref_subtitle: "Grundpreisspannen aus der aktuellen Service-Struktur von Business Bots.",
+        service_consulting_name: "Strategische Beratung",
+        service_consulting_price: "ab €200",
+        service_consulting_desc: "Klare Prozess-Roadmap und strategische Richtung.",
+        service_ui_name: "Interface-Redesign",
+        service_ui_price: "ab €899",
+        service_ui_desc: "Konversionsorientierte UI/UX-Optimierung.",
+        service_nfc_name: "NFC- / QR-Systeme",
+        service_nfc_price: "€199–499",
+        service_nfc_desc: "Sofortiger kontaktloser Zugang und reale digitale Trigger.",
+        service_chatbot_name: "Mehrsprachige Chatbots",
+        service_chatbot_price: "ab €1500",
+        service_chatbot_desc: "24/7 Lead-Erfassung, Support und Automatisierungslogik.",
+        service_brand_name: "Komplettes Branding",
+        service_brand_price: "ab €2500",
+        service_brand_desc: "Kohärentes, datengetriebenes Markenidentitätssystem.",
+        service_web_name: "Webseite / Web-App",
+        service_web_price: "ab €3200",
+        service_web_desc: "Analytics, Management und digitale Infrastruktur.",
+        service_custom_name: "Individuelle Projektlösung",
+        service_custom_price: "auf Anfrage",
+        service_custom_desc: "Fusion mehrerer Services zu einem vollständigen Projektsystem.",
+        process_title: "So funktioniert der Prozess",
+        process_subtitle: "Die gleiche Logik wie im Markensystem: Verwirrung → Klarheit → Automatisierung.",
+        step1_title: "Diagnose",
+        step1_text: "Wir identifizieren das eigentliche operative Problem, Kanäle, Reibungspunkte und Geschäftsziele.",
+        step2_title: "Service-Fit",
+        step2_text: "Wir prüfen, ob die Anfrage Beratung, Interface-Arbeit, Chatbot-Automatisierung, App-Entwicklung oder einen kombinierten Stack benötigt.",
+        step3_title: "Einschätzung",
+        step3_text: "Ein schneller erster kommerzieller Rahmen mit realistischem Umfang und Preislogik wird zurückgegeben.",
+        step4_title: "Umsetzung",
+        step4_text: "Bei passender Ausrichtung geht das Projekt in Aktivierung, Umsetzung und Optimierung über.",
+        footer_copy: "© Business Bots Solutions 2026 — Automatisierung mit Sinn, Klarheit als Prinzip.",
+        select_default: "— Auswählen —",
+        business_types: ["— Auswählen —","Restaurant / Gastronomie","Fitnessstudio / Sportanlage","Beauty / Wellness","Einzelhandel","Immobilien","Reisen / Erlebnisse","Professionelle Dienstleistungen","Sonstiges"],
+        project_goals: [
+          { value: "", label: "— Auswählen —" },
+          { value: "support", label: "Kundensupport automatisieren" },
+          { value: "leads", label: "Mehr Leads generieren" },
+          { value: "redesign", label: "Interface / UX neu gestalten" },
+          { value: "product", label: "Ein digitales Produkt starten" },
+          { value: "operations", label: "Abläufe digitalisieren" },
+          { value: "bookings", label: "Buchungen / Bestellungen zentralisieren" },
+          { value: "analytics", label: "Analytics & Tracking verbessern" }
+        ],
+        timelines: ["— Auswählen —","So schnell wie möglich","Innerhalb von 2 Wochen","Innerhalb von 1 Monat","Innerhalb von 2–3 Monaten","Noch in Prüfung"],
+        stages: ["— Auswählen —","Nur eine Idee","Umfang klar definiert","Bestehendes Unternehmen, braucht Verbesserung","Bestehendes System, braucht Redesign","Dringendes operatives Problem"],
+        wa_greeting: "Hallo Business Bots Solutions, ich möchte eine schnelle Einschätzung für mein Projekt.",
+        wa_title: "SCHNELLANGEBOTS-ANFRAGE",
+        wa_name: "Name",
+        wa_company: "Unternehmen",
+        wa_phone: "Telefon",
+        wa_email: "E-Mail",
+        wa_business_type: "Geschäftsart",
+        wa_goal: "Hauptziel",
+        wa_services: "Interessante Services",
+        wa_timeline: "Zeitrahmen",
+        wa_stage: "Aktueller Stand",
+        wa_budget: "Budgetrahmen",
+        wa_details: "Projektdetails",
+        wa_not_specified: "Nicht angegeben",
+        email_subject: "Schnellangebots-Anfrage — Business Bots Solutions"
+      },
+
+      it: {
+        dir: "ltr",
+        brand_kicker: "Interfaccia Preventivo Rapido",
+        brand_title: "Business Bots Solutions — Stima Intelligente di Automazione",
+        top_website: "Sito Web",
+        eyebrow: "Automazione con Scopo",
+        hero_title: "Richiedi un preventivo rapido per il tuo prossimo progetto di automazione.",
+        hero_text: "Aiutiamo le aziende a trasformare la complessità in chiarezza attraverso l’automazione intelligente. Questa interfaccia è pensata per potenziali clienti che desiderano una prima stima veloce in base al tipo di servizio, al contesto aziendale, alla fascia di budget e alle esigenze di implementazione.",
+        point_essence_label: "Essenza",
+        point_essence_value: "Chiarezza prima dell’automazione",
+        point_mission_label: "Missione",
+        point_mission_value: "Sistemi trasparenti con risultati misurabili",
+        point_vision_label: "Visione",
+        point_vision_value: "Trasformazione digitale scalabile in Europa e UAE",
+        quote_kicker: "Perché questo modulo",
+        quote_big: "Rapido, chiaro, strategico.",
+        quote_text: "Non è un semplice modulo di contatto. Filtra l’intento del progetto, la coerenza del servizio e la portata prevista in modo che la prima risposta sia già utile, realistica e commercialmente allineata.",
+        mini_stat_1: "Punto di partenza consulenza strategica",
+        mini_stat_2: "Punto di partenza progetti web / web app",
+        panel_title: "Stima Rapida del Progetto",
+        panel_subtitle: "Compila i campi qui sotto e il pulsante WhatsApp genererà un riepilogo strutturato con brief, servizi desiderati e aspettative di budget.",
+        panel_tag: "Lead Intake",
+        label_name: "Nome completo",
+        label_company: "Azienda / brand",
+        label_phone: "Telefono",
+        label_email: "Email",
+        label_business_type: "Tipo di attività",
+        label_main_objective: "Obiettivo principale",
+        label_services_interest: "Servizi di interesse",
+        label_timeline: "Tempistica desiderata",
+        label_stage: "Fase attuale",
+        label_budget: "Fascia di budget stimata (€)",
+        label_details: "Dettagli del progetto",
+        placeholder_name: "Il tuo nome completo",
+        placeholder_company: "Nome dell’azienda",
+        placeholder_phone: "+39 ...",
+        placeholder_email: "nome@azienda.com",
+        placeholder_budget_min: "Budget min.",
+        placeholder_budget_max: "Budget max.",
+        placeholder_details: "Spiega brevemente di cosa hai bisogno, cosa non funziona, quali canali usi ora e quale risultato ti aspetti.",
+        btn_whatsapp: "Invia via WhatsApp",
+        btn_email: "Invia via Email",
+        note_text: "Business Bots Solutions lavora con un approccio sistemico: prima diagnosi, poi implementazione. Questo preventivo rapido aiuta a capire se la richiesta rientra in consulenza strategica, redesign interfaccia, chatbot, sistemi web, branding o una soluzione combinata personalizzata.",
+        ref_title: "Servizi di Riferimento",
+        ref_subtitle: "Fasce base estratte dall’attuale struttura servizi di Business Bots.",
+        service_consulting_name: "Consulenza Strategica",
+        service_consulting_price: "da €200",
+        service_consulting_desc: "Roadmap chiara e direzione strategica.",
+        service_ui_name: "Restyling Interfaccia",
+        service_ui_price: "da €899",
+        service_ui_desc: "Ottimizzazione UI/UX orientata alla conversione.",
+        service_nfc_name: "Sistemi NFC / QR",
+        service_nfc_price: "€199–499",
+        service_nfc_desc: "Accesso immediato contactless e trigger digitali reali.",
+        service_chatbot_name: "Chatbot Multilingua",
+        service_chatbot_price: "da €1500",
+        service_chatbot_desc: "Lead generation 24/7, supporto e logica di automazione.",
+        service_brand_name: "Branding Completo",
+        service_brand_price: "da €2500",
+        service_brand_desc: "Sistema di identità di brand coerente e data-driven.",
+        service_web_name: "Pagina Web / Web App",
+        service_web_price: "da €3200",
+        service_web_desc: "Analytics, gestione e infrastruttura digitale.",
+        service_custom_name: "Soluzione Progetto Personalizzata",
+        service_custom_price: "su preventivo",
+        service_custom_desc: "Fusione di più servizi in un unico sistema progettuale.",
+        process_title: "Come funziona il processo",
+        process_subtitle: "La stessa logica del sistema di brand: confusione → chiarezza → automazione.",
+        step1_title: "Diagnosi",
+        step1_text: "Identifichiamo il vero problema operativo, i canali, i punti di attrito e l’obiettivo di business.",
+        step2_title: "Compatibilità del Servizio",
+        step2_text: "Valutiamo se la richiesta richiede consulenza, interfaccia, automazione chatbot, sviluppo app o uno stack combinato.",
+        step3_title: "Stima",
+        step3_text: "Viene restituito un primo quadro commerciale rapido con ambito e logica di prezzo realistici.",
+        step4_title: "Esecuzione",
+        step4_text: "Se c’è allineamento, il progetto passa ad attivazione, build e ottimizzazione.",
+        footer_copy: "© Business Bots Solutions 2026 — Automazione con scopo, chiarezza come principio.",
+        select_default: "— Seleziona —",
+        business_types: ["— Seleziona —","Ristorante / Ospitalità","Palestra / Struttura sportiva","Bellezza / Benessere","Retail","Immobiliare","Viaggi / Esperienze","Servizi professionali","Altro"],
+        project_goals: [
+          { value: "", label: "— Seleziona —" },
+          { value: "support", label: "Automatizzare l’assistenza clienti" },
+          { value: "leads", label: "Generare più lead" },
+          { value: "redesign", label: "Ridisegnare interfaccia / UX" },
+          { value: "product", label: "Lanciare un prodotto digitale" },
+          { value: "operations", label: "Digitalizzare le operazioni" },
+          { value: "bookings", label: "Centralizzare prenotazioni / ordini" },
+          { value: "analytics", label: "Migliorare analytics e tracking" }
+        ],
+        timelines: ["— Seleziona —","Il prima possibile","Entro 2 settimane","Entro 1 mese","Entro 2–3 mesi","Solo esplorando"],
+        stages: ["— Seleziona —","Solo un’idea","Ambito già definito","Business esistente da migliorare","Sistema esistente da ridisegnare","Problema operativo urgente"],
+        wa_greeting: "Ciao Business Bots Solutions, desidero una stima rapida per il mio progetto.",
+        wa_title: "RICHIESTA PREVENTIVO RAPIDO",
+        wa_name: "Nome",
+        wa_company: "Azienda",
+        wa_phone: "Telefono",
+        wa_email: "Email",
+        wa_business_type: "Tipo di attività",
+        wa_goal: "Obiettivo principale",
+        wa_services: "Servizi di interesse",
+        wa_timeline: "Tempistica",
+        wa_stage: "Fase attuale",
+        wa_budget: "Fascia di budget",
+        wa_details: "Dettagli del progetto",
+        wa_not_specified: "Non specificato",
+        email_subject: "Richiesta Preventivo Rapido — Business Bots Solutions"
+      },
+
+      af: {
+        dir: "ltr",
+        brand_kicker: "Vinnige Kwotasie-koppelvlak",
+        brand_title: "Business Bots Solutions — Intelligente Outomatiseringsberaming",
+        top_website: "Webwerf",
+        eyebrow: "Outomatisering met Doel",
+        hero_title: "Vra ’n vinnige kwotasie vir jou volgende outomatiseringsprojek aan.",
+        hero_text: "Ons help besighede om kompleksiteit in duidelikheid te verander deur intelligente outomatisering. Hierdie koppelvlak is ontwerp vir potensiële kliënte wat ’n vinnige eerste beraming wil hê gebaseer op dienssoort, besigheidskonteks, begrotingsreeks en implementeringsbehoeftes.",
+        point_essence_label: "Essensie",
+        point_essence_value: "Duidelikheid voor outomatisering",
+        point_mission_label: "Missie",
+        point_mission_value: "Deursigtige stelsels met meetbare resultate",
+        point_vision_label: "Visie",
+        point_vision_value: "Skaalbare digitale transformasie in Europa en die VAE",
+        quote_kicker: "Waarom hierdie vorm",
+        quote_big: "Vinnig, duidelik, strategies.",
+        quote_text: "Dit is nie ’n algemene kontakvorm nie. Dit filter projekbedoeling, dienspassing en verwagte omvang sodat die eerste antwoord reeds nuttig, realisties en kommersieel in lyn is.",
+        mini_stat_1: "Beginpunt vir strategiese konsultasie",
+        mini_stat_2: "Beginpunt vir web- / webtoep-projekte",
+        panel_title: "Vinnige Projekberaming",
+        panel_subtitle: "Voltooi die velde hieronder en die WhatsApp-knoppie sal ’n gestruktureerde opsomming met die projekbrief, gewenste dienste en begrotingsverwagtinge genereer.",
+        panel_tag: "Leidraad",
+        label_name: "Volle naam",
+        label_company: "Maatskappy / handelsmerk",
+        label_phone: "Telefoon",
+        label_email: "E-pos",
+        label_business_type: "Besigheidstipe",
+        label_main_objective: "Hoofdoel",
+        label_services_interest: "Dienste van belang",
+        label_timeline: "Gewenste tydlyn",
+        label_stage: "Huidige stadium",
+        label_budget: "Geskatte begrotingsreeks (€)",
+        label_details: "Projekbesonderhede",
+        placeholder_name: "Jou volle naam",
+        placeholder_company: "Besigheidsnaam",
+        placeholder_phone: "+27 ...",
+        placeholder_email: "naam@maatskappy.com",
+        placeholder_budget_min: "Min. begroting",
+        placeholder_budget_max: "Maks. begroting",
+        placeholder_details: "Verduidelik kortliks wat jy nodig het, wat nie werk nie, watter kanale jy nou gebruik en watter resultaat jy verwag.",
+        btn_whatsapp: "Stuur via WhatsApp",
+        btn_email: "Stuur via E-pos",
+        note_text: "Business Bots Solutions werk met ’n sistemiese benadering: eers diagnose, dan implementering. Hierdie vinnige kwotasie help bepaal of die versoek pas by strategiese konsultasie, koppelvlak-herontwerp, kletsbotte, webstelsels, branding of ’n pasgemaakte gekombineerde oplossing.",
+        ref_title: "Verwysingsdienste",
+        ref_subtitle: "Basiese prysreekse uit die huidige Business Bots-diensstruktuur.",
+        service_consulting_name: "Strategiese Konsultasie",
+        service_consulting_price: "vanaf €200",
+        service_consulting_desc: "Duidelike prosespadkaart en strategiese rigting.",
+        service_ui_name: "Koppelvlak Herontwerp",
+        service_ui_price: "vanaf €899",
+        service_ui_desc: "Omskakelingsgerigte UI/UX-optimalisering.",
+        service_nfc_name: "NFC / QR-stelsels",
+        service_nfc_price: "€199–499",
+        service_nfc_desc: "Onmiddellike kontaklose toegang en werklike digitale snellers.",
+        service_chatbot_name: "Meertalige Kletsbotte",
+        service_chatbot_price: "vanaf €1500",
+        service_chatbot_desc: "24/7 leidrade, ondersteuning en outomatiseringslogika.",
+        service_brand_name: "Volledige Handelsmerkidentiteit",
+        service_brand_price: "vanaf €2500",
+        service_brand_desc: "Samehangende, data-gedrewe handelsmerkstelsel.",
+        service_web_name: "Webblad / Webtoep",
+        service_web_price: "vanaf €3200",
+        service_web_desc: "Analitika, bestuur en digitale infrastruktuur.",
+        service_custom_name: "Pasgemaakte Projekoplossing",
+        service_custom_price: "op kwotasie",
+        service_custom_desc: "Versmelting van verskeie dienste in een volledige projekstelsel.",
+        process_title: "Hoe die proses werk",
+        process_subtitle: "Dieselfde logika as die handelsmerkstelsel: verwarring → duidelikheid → outomatisering.",
+        step1_title: "Diagnose",
+        step1_text: "Ons identifiseer die werklike operasionele probleem, kanale, friksiepunte en besigheidsdoelwit.",
+        step2_title: "Dienspassing",
+        step2_text: "Ons bepaal of die versoek konsultasie, koppelvlakwerk, kletsbot-outomatisering, app-ontwikkeling of ’n gekombineerde stapel benodig.",
+        step3_title: "Beraming",
+        step3_text: "’n Vinnige eerste kommersiële raamwerk met realistiese omvang en pryslogika word teruggestuur.",
+        step4_title: "Uitvoering",
+        step4_text: "Indien daar belyning is, beweeg die projek na aktivering, bou en optimalisering.",
+        footer_copy: "© Business Bots Solutions 2026 — Outomatisering met doel, duidelikheid as beginsel.",
+        select_default: "— Kies —",
+        business_types: ["— Kies —","Restaurant / Gasvryheid","Gimnasium / Sportfasiliteit","Skoonheid / Welstand","Kleinhandel","Eiendom","Reis / Ervarings","Professionele Dienste","Ander"],
+        project_goals: [
+          { value: "", label: "— Kies —" },
+          { value: "support", label: "Outomatiseer kliëntediens" },
+          { value: "leads", label: "Genereer meer leidrade" },
+          { value: "redesign", label: "Herontwerp koppelvlak / UX" },
+          { value: "product", label: "Begin ’n digitale produk" },
+          { value: "operations", label: "Digitaliseer bedrywighede" },
+          { value: "bookings", label: "Sentraliseer besprekings / bestellings" },
+          { value: "analytics", label: "Verbeter analitika en nasporing" }
+        ],
+        timelines: ["— Kies —","So gou moontlik","Binne 2 weke","Binne 1 maand","Binne 2–3 maande","Net verkennend"],
+        stages: ["— Kies —","Net ’n idee","Duidelike omvang gedefinieer","Bestaande besigheid wat verbetering nodig het","Bestaande stelsel wat herontwerp nodig het","Dringende operasionele probleem"],
+        wa_greeting: "Hallo Business Bots Solutions, ek wil ’n vinnige beraming vir my projek hê.",
+        wa_title: "VINNIGE KWOTASIE-VERSOEK",
+        wa_name: "Naam",
+        wa_company: "Maatskappy",
+        wa_phone: "Telefoon",
+        wa_email: "E-pos",
+        wa_business_type: "Besigheidstipe",
+        wa_goal: "Hoofdoel",
+        wa_services: "Dienste van belang",
+        wa_timeline: "Tydlyn",
+        wa_stage: "Huidige stadium",
+        wa_budget: "Begrotingsreeks",
+        wa_details: "Projekbesonderhede",
+        wa_not_specified: "Nie gespesifiseer nie",
+        email_subject: "Vinnige Kwotasie-Versoek — Business Bots Solutions"
+      },
+
+      ar: {
+        dir: "rtl",
+        brand_kicker: "واجهة عرض سعر سريع",
+        brand_title: "Business Bots Solutions — تقدير ذكي للأتمتة",
+        top_website: "الموقع",
+        eyebrow: "أتمتة لها هدف",
+        hero_title: "اطلب عرض سعر سريع لمشروع الأتمتة القادم الخاص بك.",
+        hero_text: "نساعد الشركات على تحويل التعقيد إلى وضوح من خلال الأتمتة الذكية. تم تصميم هذه الواجهة للعملاء المحتملين الذين يريدون تقديراً أولياً سريعاً بناءً على نوع الخدمة وسياق العمل ونطاق الميزانية واحتياجات التنفيذ.",
+        point_essence_label: "الجوهر",
+        point_essence_value: "الوضوح قبل الأتمتة",
+        point_mission_label: "المهمة",
+        point_mission_value: "أنظمة شفافة بنتائج قابلة للقياس",
+        point_vision_label: "الرؤية",
+        point_vision_value: "تحول رقمي قابل للتوسع في أوروبا والإمارات",
+        quote_kicker: "لماذا هذا النموذج",
+        quote_big: "سريع، واضح، استراتيجي.",
+        quote_text: "هذا ليس نموذج تواصل عادياً. فهو يحدد نية المشروع وملاءمة الخدمة والنطاق المتوقع بحيث تكون أول إجابة مفيدة وواقعية ومتوافقة تجارياً.",
+        mini_stat_1: "نقطة بداية الاستشارة الاستراتيجية",
+        mini_stat_2: "نقطة بداية مشاريع الويب / تطبيقات الويب",
+        panel_title: "تقدير سريع للمشروع",
+        panel_subtitle: "أكمل الحقول أدناه وسيقوم زر واتساب بإنشاء ملخص منظم يتضمن موجز المشروع والخدمات المطلوبة وتوقعات الميزانية.",
+        panel_tag: "جمع العملاء المحتملين",
+        label_name: "الاسم الكامل",
+        label_company: "الشركة / العلامة",
+        label_phone: "الهاتف",
+        label_email: "البريد الإلكتروني",
+        label_business_type: "نوع النشاط",
+        label_main_objective: "الهدف الرئيسي",
+        label_services_interest: "الخدمات المطلوبة",
+        label_timeline: "الإطار الزمني المطلوب",
+        label_stage: "المرحلة الحالية",
+        label_budget: "نطاق الميزانية التقديري (€)",
+        label_details: "تفاصيل المشروع",
+        placeholder_name: "اسمك الكامل",
+        placeholder_company: "اسم الشركة",
+        placeholder_phone: "+971 ...",
+        placeholder_email: "name@company.com",
+        placeholder_budget_min: "الحد الأدنى للميزانية",
+        placeholder_budget_max: "الحد الأقصى للميزانية",
+        placeholder_details: "اشرح باختصار ما تحتاجه، وما الذي لا يعمل حالياً، وما القنوات التي تستخدمها الآن، وما النتيجة التي تتوقعها.",
+        btn_whatsapp: "إرسال عبر واتساب",
+        btn_email: "إرسال عبر البريد",
+        note_text: "تعمل Business Bots Solutions بمنهجية نظامية: أولاً التشخيص ثم التنفيذ. يساعد هذا العرض السريع على تحديد ما إذا كان الطلب يناسب الاستشارة الاستراتيجية أو إعادة تصميم الواجهة أو الشات بوت أو الأنظمة الويب أو الهوية أو حلاً مخصصاً يجمع عدة خدمات.",
+        ref_title: "الخدمات المرجعية",
+        ref_subtitle: "النطاقات الأساسية المستخرجة من هيكل خدمات Business Bots الحالي.",
+        service_consulting_name: "استشارة استراتيجية",
+        service_consulting_price: "من €200",
+        service_consulting_desc: "خارطة طريق واضحة واتجاه استراتيجي.",
+        service_ui_name: "إعادة تصميم الواجهة",
+        service_ui_price: "من €899",
+        service_ui_desc: "تحسين UI/UX موجه للتحويل.",
+        service_nfc_name: "أنظمة NFC / QR",
+        service_nfc_price: "€199–499",
+        service_nfc_desc: "وصول فوري بدون تلامس ومحفزات رقمية واقعية.",
+        service_chatbot_name: "روبوتات دردشة متعددة اللغات",
+        service_chatbot_price: "من €1500",
+        service_chatbot_desc: "التقاط العملاء المحتملين 24/7 والدعم ومنطق الأتمتة.",
+        service_brand_name: "هوية علامة تجارية كاملة",
+        service_brand_price: "من €2500",
+        service_brand_desc: "نظام هوية علامة متماسك ومدفوع بالبيانات.",
+        service_web_name: "صفحة ويب / تطبيق ويب",
+        service_web_price: "من €3200",
+        service_web_desc: "تحليلات وإدارة وبنية رقمية.",
+        service_custom_name: "حل مشروع مخصص",
+        service_custom_price: "حسب العرض",
+        service_custom_desc: "دمج عدة خدمات في نظام مشروع متكامل.",
+        process_title: "كيف تعمل العملية",
+        process_subtitle: "نفس منطق نظام العلامة: ارتباك ← وضوح ← أتمتة.",
+        step1_title: "التشخيص",
+        step1_text: "نحدد المشكلة التشغيلية الحقيقية والقنوات ونقاط الاحتكاك وهدف العمل.",
+        step2_title: "ملاءمة الخدمة",
+        step2_text: "نحدد ما إذا كان الطلب يحتاج إلى استشارة أو عمل على الواجهة أو أتمتة شات بوت أو تطوير تطبيق أو حزمة مركبة.",
+        step3_title: "التقدير",
+        step3_text: "يتم إرسال إطار تجاري أولي سريع مع نطاق ومنطق تسعير واقعيين.",
+        step4_title: "التنفيذ",
+        step4_text: "إذا كان هناك توافق، ينتقل المشروع إلى التفعيل والبناء والتحسين.",
+        footer_copy: "© Business Bots Solutions 2026 — أتمتة لها هدف، والوضوح مبدأ أساسي.",
+        select_default: "— اختر —",
+        business_types: ["— اختر —","مطعم / ضيافة","نادي رياضي / منشأة رياضية","تجميل / عافية","تجزئة","عقارات","سفر / تجارب","خدمات مهنية","أخرى"],
+        project_goals: [
+          { value: "", label: "— اختر —" },
+          { value: "support", label: "أتمتة خدمة العملاء" },
+          { value: "leads", label: "توليد المزيد من العملاء المحتملين" },
+          { value: "redesign", label: "إعادة تصميم الواجهة / UX" },
+          { value: "product", label: "إطلاق منتج رقمي" },
+          { value: "operations", label: "رقمنة العمليات" },
+          { value: "bookings", label: "مركزة الحجوزات / الطلبات" },
+          { value: "analytics", label: "تحسين التحليلات والتتبع" }
+        ],
+        timelines: ["— اختر —","في أقرب وقت ممكن","خلال أسبوعين","خلال شهر","خلال 2–3 أشهر","استكشاف فقط"],
+        stages: ["— اختر —","مجرد فكرة","نطاق واضح ومحدد","عمل قائم يحتاج إلى تحسين","نظام قائم يحتاج إلى إعادة تصميم","مشكلة تشغيلية عاجلة"],
+        wa_greeting: "مرحباً Business Bots Solutions، أريد تقديراً سريعاً لمشروعي.",
+        wa_title: "طلب عرض سعر سريع",
+        wa_name: "الاسم",
+        wa_company: "الشركة",
+        wa_phone: "الهاتف",
+        wa_email: "البريد الإلكتروني",
+        wa_business_type: "نوع النشاط",
+        wa_goal: "الهدف الرئيسي",
+        wa_services: "الخدمات المطلوبة",
+        wa_timeline: "الإطار الزمني",
+        wa_stage: "المرحلة الحالية",
+        wa_budget: "نطاق الميزانية",
+        wa_details: "تفاصيل المشروع",
+        wa_not_specified: "غير محدد",
+        email_subject: "طلب عرض سعر سريع — Business Bots Solutions"
+      }
+    };
+
+    let currentLang = "en";
+
     function formatNumber(value) {
       if (!value) return null;
       const num = Number(value);
       if (Number.isNaN(num)) return value;
-      return new Intl.NumberFormat('en-US').format(num);
+
+      const localeMap = {
+        en: "en-US",
+        es: "es-ES",
+        fr: "fr-FR",
+        de: "de-DE",
+        it: "it-IT",
+        af: "en-ZA",
+        ar: "ar-EG"
+      };
+
+      return new Intl.NumberFormat(localeMap[currentLang] || "en-US").format(num);
+    }
+
+    function getTranslation(lang, key) {
+      return translations[lang] && translations[lang][key] ? translations[lang][key] : "";
+    }
+
+    function populateSelect(selectId, items) {
+      const select = document.getElementById(selectId);
+      if (!select) return;
+      select.innerHTML = "";
+
+      if (items.length && typeof items[0] === "string") {
+        items.forEach((item, index) => {
+          const option = document.createElement("option");
+          option.value = index === 0 ? "" : item;
+          option.textContent = item;
+          select.appendChild(option);
+        });
+      } else {
+        items.forEach(item => {
+          const option = document.createElement("option");
+          option.value = item.value;
+          option.textContent = item.label;
+          select.appendChild(option);
+        });
+      }
+    }
+
+    function renderServicesForObjective(goalValue = "") {
+      const container = document.getElementById("servicesContainer");
+      const lang = currentLang;
+      container.innerHTML = "";
+
+      const serviceKeys = servicesByObjective[goalValue] || ["consulting", "ui", "nfc", "chatbot", "brand", "web", "custom"];
+
+      serviceKeys.forEach(key => {
+        const service = serviceCatalog[key];
+        const label = document.createElement("label");
+        label.className = "check";
+
+        const input = document.createElement("input");
+        input.type = "checkbox";
+        input.value = service.keys[lang];
+
+        const span = document.createElement("span");
+        span.textContent = service.keys[lang];
+
+        label.appendChild(input);
+        label.appendChild(span);
+        container.appendChild(label);
+
+        input.addEventListener("change", updateLinks);
+      });
+    }
+
+    function applyLanguage(lang) {
+      currentLang = lang;
+      const t = translations[lang];
+      document.documentElement.lang = lang;
+      document.documentElement.dir = t.dir || "ltr";
+
+      document.querySelectorAll("[data-i18n]").forEach(el => {
+        const key = el.getAttribute("data-i18n");
+        if (t[key]) el.textContent = t[key];
+      });
+
+      document.querySelectorAll("[data-i18n-placeholder]").forEach(el => {
+        const key = el.getAttribute("data-i18n-placeholder");
+        if (t[key]) el.placeholder = t[key];
+      });
+
+      populateSelect("businessType", t.business_types);
+      populateSelect("projectGoal", t.project_goals);
+      populateSelect("timeline", t.timelines);
+      populateSelect("projectStage", t.stages);
+
+      renderServicesForObjective(document.getElementById("projectGoal").value);
+
+      document.querySelectorAll(".lang-btn").forEach(btn => {
+        btn.classList.toggle("active", btn.dataset.lang === lang);
+      });
+
+      updateLinks();
     }
 
     function getSelectedText(id) {
@@ -1090,57 +2054,58 @@
     }
 
     function getCheckedServices() {
-      return Array.from(document.querySelectorAll('.check input:checked')).map(input => input.value);
+      return Array.from(document.querySelectorAll("#servicesContainer input:checked")).map(input => input.value);
     }
 
     function buildWhatsAppMessage() {
-      const name = document.getElementById('clientName').value.trim();
-      const company = document.getElementById('companyName').value.trim();
-      const phone = document.getElementById('clientPhone').value.trim();
-      const email = document.getElementById('clientEmail').value.trim();
-      const businessType = getSelectedText('businessType');
-      const projectGoal = getSelectedText('projectGoal');
-      const timeline = getSelectedText('timeline');
-      const projectStage = getSelectedText('projectStage');
-      const budgetMin = document.getElementById('budgetMin').value.trim();
-      const budgetMax = document.getElementById('budgetMax').value.trim();
-      const details = document.getElementById('projectDetails').value.trim();
+      const t = translations[currentLang];
+      const name = document.getElementById("clientName").value.trim();
+      const company = document.getElementById("companyName").value.trim();
+      const phone = document.getElementById("clientPhone").value.trim();
+      const email = document.getElementById("clientEmail").value.trim();
+      const businessType = getSelectedText("businessType");
+      const projectGoal = getSelectedText("projectGoal");
+      const timeline = getSelectedText("timeline");
+      const projectStage = getSelectedText("projectStage");
+      const budgetMin = document.getElementById("budgetMin").value.trim();
+      const budgetMax = document.getElementById("budgetMax").value.trim();
+      const details = document.getElementById("projectDetails").value.trim();
       const services = getCheckedServices();
 
-      let msg = "Hi Business Bots Solutions, I want a quick project estimate.\n\n";
+      let msg = t.wa_greeting + "\n\n";
       msg += "━━━━━━━━━━━━━━━━\n";
-      msg += "QUICK QUOTE REQUEST\n";
+      msg += t.wa_title + "\n";
       msg += "━━━━━━━━━━━━━━━━\n\n";
-      msg += "Name: " + (name || "Not specified") + "\n";
-      msg += "Company: " + (company || "Not specified") + "\n";
-      msg += "Phone: " + (phone || "Not specified") + "\n";
-      msg += "Email: " + (email || "Not specified") + "\n\n";
-      msg += "Business type: " + (businessType || "Not specified") + "\n";
-      msg += "Main objective: " + (projectGoal || "Not specified") + "\n";
-      msg += "Timeline: " + (timeline || "Not specified") + "\n";
-      msg += "Current stage: " + (projectStage || "Not specified") + "\n";
-      msg += "Services of interest: " + (services.length ? services.join(", ") : "Not specified") + "\n";
+      msg += t.wa_name + ": " + (name || t.wa_not_specified) + "\n";
+      msg += t.wa_company + ": " + (company || t.wa_not_specified) + "\n";
+      msg += t.wa_phone + ": " + (phone || t.wa_not_specified) + "\n";
+      msg += t.wa_email + ": " + (email || t.wa_not_specified) + "\n\n";
+      msg += t.wa_business_type + ": " + (businessType || t.wa_not_specified) + "\n";
+      msg += t.wa_goal + ": " + (projectGoal || t.wa_not_specified) + "\n";
+      msg += t.wa_services + ": " + (services.length ? services.join(", ") : t.wa_not_specified) + "\n";
+      msg += t.wa_timeline + ": " + (timeline || t.wa_not_specified) + "\n";
+      msg += t.wa_stage + ": " + (projectStage || t.wa_not_specified) + "\n";
 
       if (budgetMin || budgetMax) {
-        msg += "Budget range: " + (formatNumber(budgetMin) || "—") + " → " + (formatNumber(budgetMax) || "—") + " €\n";
+        msg += t.wa_budget + ": " + (formatNumber(budgetMin) || "—") + " → " + (formatNumber(budgetMax) || "—") + " €\n";
       } else {
-        msg += "Budget range: Not specified\n";
+        msg += t.wa_budget + ": " + t.wa_not_specified + "\n";
       }
 
-      msg += "\nProject details:\n" + (details || "Not specified");
+      msg += "\n" + t.wa_details + ":\n" + (details || t.wa_not_specified);
 
       return msg;
     }
 
     function updateWhatsAppLink() {
       const msg = buildWhatsAppMessage();
-      document.getElementById('waBtn').href = "https://wa.me/34666759214?text=" + encodeURIComponent(msg);
+      document.getElementById("waBtn").href = "https://wa.me/34631690524?text=" + encodeURIComponent(msg);
     }
 
     function updateMailLink() {
       const msg = buildWhatsAppMessage();
-      const subject = "Quick Quote Request — Business Bots Solutions";
-      document.getElementById('mailBtn').href =
+      const subject = translations[currentLang].email_subject;
+      document.getElementById("mailBtn").href =
         "mailto:info@businessbots.org?subject=" + encodeURIComponent(subject) +
         "&body=" + encodeURIComponent(msg);
     }
@@ -1150,12 +2115,21 @@
       updateMailLink();
     }
 
-    document.querySelectorAll('input, select, textarea').forEach(el => {
-      el.addEventListener('input', updateLinks);
-      el.addEventListener('change', updateLinks);
+    document.querySelectorAll("#clientName, #companyName, #clientPhone, #clientEmail, #timeline, #projectStage, #budgetMin, #budgetMax, #projectDetails, #businessType").forEach(el => {
+      el.addEventListener("input", updateLinks);
+      el.addEventListener("change", updateLinks);
     });
 
-    updateLinks();
+    document.getElementById("projectGoal").addEventListener("change", (e) => {
+      renderServicesForObjective(e.target.value);
+      updateLinks();
+    });
+
+    document.querySelectorAll(".lang-btn").forEach(btn => {
+      btn.addEventListener("click", () => applyLanguage(btn.dataset.lang));
+    });
+
+    applyLanguage("en");
   </script>
 </body>
 </html>
