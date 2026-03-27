@@ -1,0 +1,1161 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Business Bots Solutions — Quick Quote</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Outfit:wght@200;300;400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root{
+      --bg:#050505;
+      --bg2:#0d0d0d;
+      --bg3:#131313;
+      --bg4:#1a1a1a;
+      --card:rgba(12,12,12,0.86);
+      --card-2:rgba(18,18,18,0.92);
+      --text:#ffffff;
+      --text2:#b6b6b6;
+      --text3:#7a7a7a;
+      --accent:#00ff41;
+      --accent-soft:rgba(0,255,65,0.10);
+      --accent-line:rgba(0,255,65,0.22);
+      --border:rgba(255,255,255,0.08);
+      --border-hover:rgba(0,255,65,0.34);
+      --shadow:0 16px 60px rgba(0,0,0,0.45);
+      --glow:0 0 40px rgba(0,255,65,0.08);
+      --radius:18px;
+      --radius-sm:12px;
+      --font-display:'Cormorant Garamond', serif;
+      --font-body:'Outfit', sans-serif;
+      --transition:background-color .45s ease,color .45s ease,border-color .45s ease,box-shadow .45s ease,transform .35s ease,opacity .35s ease;
+    }
+
+    html { scroll-behavior: smooth; }
+    body{
+      min-height:100vh;
+      background:var(--bg);
+      color:var(--text);
+      font-family:var(--font-body);
+      overflow-x:hidden;
+      position:relative;
+    }
+
+    .grid-background{
+      position:fixed;
+      inset:0;
+      background-image:
+        linear-gradient(rgba(0,255,65,0.05) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0,255,65,0.05) 1px, transparent 1px);
+      background-size:50px 50px;
+      animation:gridMove 20s linear infinite;
+      pointer-events:none;
+      z-index:0;
+      opacity:.75;
+    }
+
+    @keyframes gridMove{
+      0%{transform:translate(0,0)}
+      100%{transform:translate(50px,50px)}
+    }
+
+    body::after{
+      content:"";
+      position:fixed;
+      inset:0;
+      pointer-events:none;
+      background:
+        radial-gradient(circle at 50% 0%, rgba(0,255,65,0.11), transparent 38%),
+        radial-gradient(circle at 100% 20%, rgba(0,255,65,0.05), transparent 30%);
+      z-index:0;
+    }
+
+    .ambient-line{
+      position:fixed;
+      top:0;
+      left:0;
+      right:0;
+      height:1px;
+      background:linear-gradient(90deg,transparent,rgba(0,255,65,.45),transparent);
+      z-index:3;
+    }
+
+    .page{
+      position:relative;
+      z-index:2;
+      width:min(1180px, calc(100% - 32px));
+      margin:0 auto;
+      padding:28px 0 60px;
+    }
+
+    .topbar{
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      gap:16px;
+      margin-bottom:26px;
+      padding:14px 18px;
+      background:rgba(10,10,10,0.72);
+      border:1px solid var(--border);
+      border-radius:999px;
+      backdrop-filter:blur(18px);
+      box-shadow:var(--glow);
+    }
+
+    .brand-mini{
+      display:flex;
+      align-items:center;
+      gap:14px;
+      min-width:0;
+    }
+
+    .brand-mini-logo{
+      width:46px;
+      height:46px;
+      flex-shrink:0;
+      border-radius:50%;
+      background:#fff;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      padding:4px;
+      box-shadow:0 0 24px rgba(0,255,65,.35);
+      overflow:hidden;
+    }
+
+    .brand-mini-logo img{
+      width:138%;
+      height:138%;
+      object-fit:contain;
+    }
+
+    .brand-mini-text{
+      min-width:0;
+    }
+
+    .brand-mini-kicker{
+      font-size:.68rem;
+      color:var(--accent);
+      letter-spacing:.24em;
+      text-transform:uppercase;
+      margin-bottom:4px;
+    }
+
+    .brand-mini-title{
+      font-size:.96rem;
+      font-weight:500;
+      color:var(--text);
+      white-space:nowrap;
+      overflow:hidden;
+      text-overflow:ellipsis;
+    }
+
+    .topbar-actions{
+      display:flex;
+      align-items:center;
+      gap:10px;
+      flex-wrap:wrap;
+      justify-content:flex-end;
+    }
+
+    .pill{
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      padding:10px 14px;
+      border-radius:999px;
+      border:1px solid var(--border);
+      background:rgba(255,255,255,.02);
+      color:var(--text2);
+      font-size:.82rem;
+      text-decoration:none;
+      transition:var(--transition);
+    }
+
+    .pill:hover{
+      border-color:var(--border-hover);
+      color:var(--text);
+      transform:translateY(-1px);
+    }
+
+    .hero{
+      display:grid;
+      grid-template-columns:1.1fr .9fr;
+      gap:22px;
+      margin-bottom:22px;
+      align-items:stretch;
+    }
+
+    .hero-card,
+    .panel,
+    .quote-card,
+    .service-card{
+      background:var(--card);
+      border:1px solid var(--border);
+      border-radius:var(--radius);
+      backdrop-filter:blur(20px);
+      box-shadow:var(--shadow);
+      transition:var(--transition);
+    }
+
+    .hero-card{
+      padding:34px 30px;
+      position:relative;
+      overflow:hidden;
+    }
+
+    .hero-card::before{
+      content:"";
+      position:absolute;
+      inset:0;
+      background:
+        radial-gradient(circle at 12% 12%, rgba(0,255,65,.10), transparent 28%),
+        linear-gradient(135deg, rgba(0,255,65,.05), transparent 45%);
+      pointer-events:none;
+    }
+
+    .hero-inner{ position:relative; z-index:1; }
+
+    .eyebrow{
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      padding:8px 12px;
+      border-radius:999px;
+      background:var(--accent-soft);
+      border:1px solid var(--accent-line);
+      color:var(--accent);
+      font-size:.72rem;
+      letter-spacing:.18em;
+      text-transform:uppercase;
+      margin-bottom:18px;
+    }
+
+    .hero h1{
+      font-family:var(--font-display);
+      font-size:4rem;
+      line-height:.95;
+      font-weight:600;
+      max-width:780px;
+      margin-bottom:18px;
+    }
+
+    .hero p{
+      font-size:1.02rem;
+      line-height:1.75;
+      color:var(--text2);
+      max-width:760px;
+    }
+
+    .hero-points{
+      display:grid;
+      grid-template-columns:repeat(3, minmax(0,1fr));
+      gap:12px;
+      margin-top:24px;
+    }
+
+    .hero-point{
+      padding:14px 14px;
+      border:1px solid rgba(0,255,65,.12);
+      background:rgba(255,255,255,.02);
+      border-radius:14px;
+    }
+
+    .hero-point-label{
+      font-size:.72rem;
+      color:var(--text3);
+      letter-spacing:.14em;
+      text-transform:uppercase;
+      margin-bottom:7px;
+    }
+
+    .hero-point-value{
+      color:var(--text);
+      font-size:.95rem;
+      font-weight:500;
+    }
+
+    .quote-card{
+      padding:26px 24px;
+      display:flex;
+      flex-direction:column;
+      justify-content:space-between;
+      position:relative;
+      overflow:hidden;
+    }
+
+    .quote-card::before{
+      content:"";
+      position:absolute;
+      inset:0;
+      background:linear-gradient(180deg, rgba(0,255,65,.08), transparent 38%);
+      pointer-events:none;
+    }
+
+    .quote-top{
+      position:relative;
+      z-index:1;
+    }
+
+    .quote-kicker{
+      color:var(--accent);
+      font-size:.72rem;
+      text-transform:uppercase;
+      letter-spacing:.18em;
+      margin-bottom:16px;
+    }
+
+    .quote-big{
+      font-family:var(--font-display);
+      font-size:2.1rem;
+      line-height:1;
+      margin-bottom:14px;
+    }
+
+    .quote-text{
+      color:var(--text2);
+      line-height:1.7;
+      font-size:.97rem;
+    }
+
+    .quote-bottom{
+      position:relative;
+      z-index:1;
+      margin-top:20px;
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:12px;
+    }
+
+    .mini-stat{
+      padding:14px;
+      border-radius:14px;
+      background:rgba(255,255,255,.02);
+      border:1px solid var(--border);
+    }
+
+    .mini-stat-value{
+      color:var(--accent);
+      font-size:1.3rem;
+      font-weight:600;
+      margin-bottom:4px;
+    }
+
+    .mini-stat-label{
+      color:var(--text3);
+      font-size:.78rem;
+      line-height:1.4;
+    }
+
+    .main-grid{
+      display:grid;
+      grid-template-columns:1.15fr .85fr;
+      gap:22px;
+      align-items:start;
+    }
+
+    .panel{
+      padding:28px 24px;
+    }
+
+    .panel-head{
+      display:flex;
+      justify-content:space-between;
+      align-items:flex-start;
+      gap:12px;
+      margin-bottom:22px;
+    }
+
+    .panel-title-wrap h2{
+      font-size:1.55rem;
+      line-height:1.1;
+      margin-bottom:8px;
+    }
+
+    .panel-subtitle{
+      color:var(--text2);
+      line-height:1.65;
+      font-size:.95rem;
+      max-width:720px;
+    }
+
+    .panel-tag{
+      padding:8px 12px;
+      border-radius:999px;
+      border:1px solid var(--accent-line);
+      background:var(--accent-soft);
+      color:var(--accent);
+      white-space:nowrap;
+      font-size:.73rem;
+      text-transform:uppercase;
+      letter-spacing:.16em;
+    }
+
+    .form-grid{
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:16px;
+    }
+
+    .field{
+      display:flex;
+      flex-direction:column;
+      gap:7px;
+    }
+
+    .field.full{ grid-column:1 / -1; }
+
+    .field label{
+      color:var(--text2);
+      font-size:.73rem;
+      text-transform:uppercase;
+      letter-spacing:.13em;
+    }
+
+    select,
+    input,
+    textarea{
+      width:100%;
+      padding:14px 15px;
+      border-radius:var(--radius-sm);
+      border:1px solid var(--border);
+      background:var(--card-2);
+      color:var(--text);
+      font-family:var(--font-body);
+      font-size:.95rem;
+      outline:none;
+      transition:var(--transition);
+      appearance:none;
+      -webkit-appearance:none;
+    }
+
+    textarea{
+      min-height:120px;
+      resize:vertical;
+    }
+
+    select:hover,
+    input:hover,
+    textarea:hover{
+      border-color:rgba(255,255,255,.16);
+    }
+
+    select:focus,
+    input:focus,
+    textarea:focus{
+      border-color:var(--border-hover);
+      box-shadow:0 0 0 3px rgba(0,255,65,.10);
+    }
+
+    .select-wrap{ position:relative; }
+    .select-wrap::after{
+      content:"";
+      position:absolute;
+      right:16px;
+      top:50%;
+      width:7px;
+      height:7px;
+      border-right:1.5px solid var(--text3);
+      border-bottom:1.5px solid var(--text3);
+      transform:translateY(-60%) rotate(45deg);
+      pointer-events:none;
+    }
+
+    .range-grid{
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:10px;
+    }
+
+    .checks{
+      display:grid;
+      grid-template-columns:repeat(2, minmax(0,1fr));
+      gap:10px;
+    }
+
+    .check{
+      display:flex;
+      align-items:center;
+      gap:10px;
+      padding:13px 14px;
+      border:1px solid var(--border);
+      border-radius:14px;
+      background:rgba(255,255,255,.02);
+      transition:var(--transition);
+    }
+
+    .check:hover{
+      border-color:rgba(0,255,65,.26);
+      background:rgba(0,255,65,.05);
+    }
+
+    .check input{
+      width:16px;
+      height:16px;
+      accent-color:var(--accent);
+      padding:0;
+      border:none;
+      box-shadow:none;
+      flex-shrink:0;
+    }
+
+    .check span{
+      color:var(--text2);
+      font-size:.92rem;
+      line-height:1.4;
+    }
+
+    .actions{
+      display:flex;
+      gap:12px;
+      margin-top:22px;
+      flex-wrap:wrap;
+    }
+
+    .btn{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      gap:10px;
+      min-height:54px;
+      padding:0 22px;
+      border-radius:14px;
+      text-decoration:none;
+      cursor:pointer;
+      transition:var(--transition);
+      border:1px solid transparent;
+      font-family:var(--font-body);
+      font-size:.9rem;
+      font-weight:600;
+      letter-spacing:.12em;
+      text-transform:uppercase;
+    }
+
+    .btn-primary{
+      background:var(--accent);
+      color:#000;
+      box-shadow:0 0 24px rgba(0,255,65,.18);
+    }
+
+    .btn-primary:hover{
+      transform:translateY(-2px);
+      box-shadow:0 10px 34px rgba(0,255,65,.22);
+    }
+
+    .btn-secondary{
+      background:transparent;
+      color:var(--text);
+      border-color:var(--border);
+    }
+
+    .btn-secondary:hover{
+      border-color:var(--border-hover);
+      background:rgba(0,255,65,.05);
+      transform:translateY(-2px);
+    }
+
+    .aside-stack{
+      display:flex;
+      flex-direction:column;
+      gap:18px;
+    }
+
+    .service-grid{
+      display:grid;
+      grid-template-columns:1fr;
+      gap:12px;
+    }
+
+    .service-card{
+      padding:18px 16px;
+      background:rgba(255,255,255,.02);
+    }
+
+    .service-card:hover{
+      border-color:var(--border-hover);
+      transform:translateY(-2px);
+      box-shadow:var(--glow);
+    }
+
+    .service-top{
+      display:flex;
+      justify-content:space-between;
+      align-items:flex-start;
+      gap:14px;
+      margin-bottom:8px;
+    }
+
+    .service-name{
+      font-size:1rem;
+      font-weight:600;
+      color:var(--text);
+    }
+
+    .service-price{
+      color:var(--accent);
+      font-size:.92rem;
+      font-weight:600;
+      white-space:nowrap;
+    }
+
+    .service-desc{
+      color:var(--text2);
+      line-height:1.6;
+      font-size:.9rem;
+    }
+
+    .steps{
+      display:grid;
+      gap:12px;
+    }
+
+    .step{
+      display:grid;
+      grid-template-columns:42px 1fr;
+      gap:12px;
+      align-items:start;
+      padding:14px;
+      border:1px solid var(--border);
+      border-radius:14px;
+      background:rgba(255,255,255,.02);
+    }
+
+    .step-num{
+      width:42px;
+      height:42px;
+      border-radius:50%;
+      background:var(--accent);
+      color:#000;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      font-weight:700;
+      box-shadow:0 0 18px rgba(0,255,65,.22);
+    }
+
+    .step h3{
+      font-size:.98rem;
+      margin-bottom:6px;
+    }
+
+    .step p{
+      color:var(--text2);
+      line-height:1.6;
+      font-size:.9rem;
+    }
+
+    .note{
+      margin-top:16px;
+      padding:16px;
+      border-radius:14px;
+      background:rgba(0,255,65,.06);
+      border:1px solid rgba(0,255,65,.18);
+      color:var(--text2);
+      line-height:1.7;
+      font-size:.9rem;
+    }
+
+    .footer{
+      margin-top:22px;
+      padding:22px 20px;
+      border-radius:18px;
+      border:1px solid var(--border);
+      background:rgba(10,10,10,.72);
+      backdrop-filter:blur(18px);
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      gap:14px;
+      flex-wrap:wrap;
+    }
+
+    .footer-copy{
+      color:var(--text3);
+      font-size:.85rem;
+    }
+
+    .footer-links{
+      display:flex;
+      gap:18px;
+      flex-wrap:wrap;
+    }
+
+    .footer-links a{
+      color:var(--text2);
+      text-decoration:none;
+      font-size:.84rem;
+      transition:var(--transition);
+    }
+
+    .footer-links a:hover{ color:var(--accent); }
+
+    .fade-up{
+      opacity:0;
+      transform:translateY(22px);
+      animation:fadeUp .75s cubic-bezier(.4,0,.2,1) forwards;
+    }
+
+    .delay-1{ animation-delay:.08s; }
+    .delay-2{ animation-delay:.16s; }
+    .delay-3{ animation-delay:.24s; }
+    .delay-4{ animation-delay:.32s; }
+
+    @keyframes fadeUp{
+      to{ opacity:1; transform:translateY(0); }
+    }
+
+    @media (max-width: 1080px){
+      .hero,
+      .main-grid{
+        grid-template-columns:1fr;
+      }
+
+      .hero h1{ font-size:3.2rem; }
+    }
+
+    @media (max-width: 760px){
+      .page{ width:min(100% - 20px, 1180px); padding-top:16px; }
+      .topbar{
+        border-radius:22px;
+        padding:14px;
+        align-items:flex-start;
+        flex-direction:column;
+      }
+
+      .topbar-actions{ width:100%; justify-content:flex-start; }
+
+      .hero-card,
+      .panel,
+      .quote-card{ padding:22px 18px; }
+
+      .hero h1{ font-size:2.45rem; }
+      .hero-points,
+      .form-grid,
+      .range-grid,
+      .checks,
+      .quote-bottom{
+        grid-template-columns:1fr;
+      }
+
+      .actions{ flex-direction:column; }
+      .btn{ width:100%; }
+    }
+
+    @media (max-width: 480px){
+      .brand-mini-title{ white-space:normal; }
+      .hero h1{ font-size:2.05rem; }
+      .eyebrow{ font-size:.66rem; }
+    }
+  </style>
+</head>
+<body>
+  <div class="grid-background"></div>
+  <div class="ambient-line"></div>
+
+  <main class="page">
+    <header class="topbar fade-up">
+      <div class="brand-mini">
+        <div class="brand-mini-logo">
+          <img src="https://res.cloudinary.com/dxhef6dju/image/upload/v1762604293/nobacklogo_sichw3.png" alt="Business Bots Solutions logo">
+        </div>
+        <div class="brand-mini-text">
+          <div class="brand-mini-kicker">Quick Quote Interface</div>
+          <div class="brand-mini-title">Business Bots Solutions — Intelligent Automation Estimate</div>
+        </div>
+      </div>
+
+      <div class="topbar-actions">
+        <a class="pill" href="https://businessbots.org" target="_blank" rel="noopener noreferrer">Website</a>
+        <a class="pill" href="mailto:info@businessbots.org">info@businessbots.org</a>
+        <a class="pill" href="https://wa.me/34666759214" target="_blank" rel="noopener noreferrer">+34 666 75 92 14</a>
+      </div>
+    </header>
+
+    <section class="hero fade-up delay-1">
+      <div class="hero-card">
+        <div class="hero-inner">
+          <div class="eyebrow">Automation with Purpose</div>
+          <h1>Request a fast quote for your next automation project.</h1>
+          <p>
+            We help businesses transform complexity into clarity through intelligent automation.
+            This interface is designed for potential clients who want a quick first estimate based on service type,
+            business context, budget range and implementation needs.
+          </p>
+
+          <div class="hero-points">
+            <div class="hero-point">
+              <div class="hero-point-label">Essence</div>
+              <div class="hero-point-value">Clarity before automation</div>
+            </div>
+            <div class="hero-point">
+              <div class="hero-point-label">Mission</div>
+              <div class="hero-point-value">Transparent systems with measurable outcomes</div>
+            </div>
+            <div class="hero-point">
+              <div class="hero-point-label">Vision</div>
+              <div class="hero-point-value">Scalable digital transformation in Europe & UAE</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <aside class="quote-card fade-up delay-2">
+        <div class="quote-top">
+          <div class="quote-kicker">Why this form</div>
+          <div class="quote-big">Fast, clear, strategic.</div>
+          <p class="quote-text">
+            This is not a generic contact form. It filters project intent, service fit and expected scope so the first response can already be useful, realistic and commercially aligned.
+          </p>
+        </div>
+
+        <div class="quote-bottom">
+          <div class="mini-stat">
+            <div class="mini-stat-value">€200+</div>
+            <div class="mini-stat-label">Strategic consulting starting point</div>
+          </div>
+          <div class="mini-stat">
+            <div class="mini-stat-value">€3200+</div>
+            <div class="mini-stat-label">Web / web app projects starting point</div>
+          </div>
+        </div>
+      </aside>
+    </section>
+
+    <section class="main-grid">
+      <section class="panel fade-up delay-2">
+        <div class="panel-head">
+          <div class="panel-title-wrap">
+            <h2>Quick Project Estimate</h2>
+            <p class="panel-subtitle">
+              Complete the fields below and the WhatsApp button will generate a structured summary with the project brief, desired services and budget expectations.
+            </p>
+          </div>
+          <div class="panel-tag">Lead Intake</div>
+        </div>
+
+        <div class="form-grid">
+          <div class="field">
+            <label for="clientName">Full name</label>
+            <input type="text" id="clientName" placeholder="Your full name">
+          </div>
+
+          <div class="field">
+            <label for="companyName">Company / brand</label>
+            <input type="text" id="companyName" placeholder="Business name">
+          </div>
+
+          <div class="field">
+            <label for="clientPhone">Phone</label>
+            <input type="tel" id="clientPhone" placeholder="+34 ...">
+          </div>
+
+          <div class="field">
+            <label for="clientEmail">Email</label>
+            <input type="email" id="clientEmail" placeholder="name@company.com">
+          </div>
+
+          <div class="field">
+            <label for="businessType">Business type</label>
+            <div class="select-wrap">
+              <select id="businessType">
+                <option value="">— Select —</option>
+                <option>Restaurant / Hospitality</option>
+                <option>Gym / Sports facility</option>
+                <option>Beauty / Wellness</option>
+                <option>Retail</option>
+                <option>Real Estate</option>
+                <option>Travel / Experiences</option>
+                <option>Professional Services</option>
+                <option>Other</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="field">
+            <label for="projectGoal">Main objective</label>
+            <div class="select-wrap">
+              <select id="projectGoal">
+                <option value="">— Select —</option>
+                <option>Automate customer support</option>
+                <option>Generate more leads</option>
+                <option>Redesign interface / UX</option>
+                <option>Launch a digital product</option>
+                <option>Digitize operations</option>
+                <option>Centralize bookings / orders</option>
+                <option>Improve analytics & tracking</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="field full">
+            <label>Services of interest</label>
+            <div class="checks">
+              <label class="check"><input type="checkbox" value="Strategic Consulting"><span>Strategic Consulting</span></label>
+              <label class="check"><input type="checkbox" value="Interface Redesign"><span>Interface Redesign</span></label>
+              <label class="check"><input type="checkbox" value="NFC / QR Systems"><span>NFC / QR Systems</span></label>
+              <label class="check"><input type="checkbox" value="Multilingual Chatbots"><span>Multilingual Chatbots</span></label>
+              <label class="check"><input type="checkbox" value="Full Branding"><span>Full Branding</span></label>
+              <label class="check"><input type="checkbox" value="Web Page / Web App"><span>Web Page / Web App</span></label>
+            </div>
+          </div>
+
+          <div class="field">
+            <label for="timeline">Desired timeline</label>
+            <div class="select-wrap">
+              <select id="timeline">
+                <option value="">— Select —</option>
+                <option>As soon as possible</option>
+                <option>Within 2 weeks</option>
+                <option>Within 1 month</option>
+                <option>Within 2–3 months</option>
+                <option>Just exploring</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="field">
+            <label for="projectStage">Current stage</label>
+            <div class="select-wrap">
+              <select id="projectStage">
+                <option value="">— Select —</option>
+                <option>Only an idea</option>
+                <option>Clear scope defined</option>
+                <option>Existing business, needs improvement</option>
+                <option>Existing system, needs redesign</option>
+                <option>Urgent operational problem</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="field full">
+            <label>Estimated budget range (€)</label>
+            <div class="range-grid">
+              <input type="number" id="budgetMin" min="0" step="100" placeholder="Min. budget">
+              <input type="number" id="budgetMax" min="0" step="100" placeholder="Max. budget">
+            </div>
+          </div>
+
+          <div class="field full">
+            <label for="projectDetails">Project details</label>
+            <textarea id="projectDetails" placeholder="Explain briefly what you need, what is not working, what channels you use now, and what kind of result you expect."></textarea>
+          </div>
+        </div>
+
+        <div class="actions">
+          <a href="https://wa.me/34666759214" target="_blank" rel="noopener noreferrer" class="btn btn-primary" id="waBtn">Send via WhatsApp</a>
+          <a href="mailto:info@businessbots.org" class="btn btn-secondary" id="mailBtn">Send via Email</a>
+        </div>
+
+        <div class="note">
+          Business Bots Solutions works with a systemic approach: diagnosis first, then implementation. This quick quote helps identify whether the request fits strategic consulting, interface redesign, chatbots, web systems, branding, or a custom combined solution.
+        </div>
+      </section>
+
+      <aside class="aside-stack">
+        <section class="panel fade-up delay-3">
+          <div class="panel-head">
+            <div class="panel-title-wrap">
+              <h2>Reference Services</h2>
+              <p class="panel-subtitle">Base ranges extracted from the current Business Bots service structure.</p>
+            </div>
+          </div>
+
+          <div class="service-grid">
+            <article class="service-card">
+              <div class="service-top">
+                <div class="service-name">Strategic Consulting</div>
+                <div class="service-price">from €200</div>
+              </div>
+              <div class="service-desc">Clear process roadmap and strategic direction.</div>
+            </article>
+
+            <article class="service-card">
+              <div class="service-top">
+                <div class="service-name">Interface Redesign</div>
+                <div class="service-price">from €899</div>
+              </div>
+              <div class="service-desc">Conversion-focused UI/UX optimization.</div>
+            </article>
+
+            <article class="service-card">
+              <div class="service-top">
+                <div class="service-name">NFC / QR Systems</div>
+                <div class="service-price">€199–499</div>
+              </div>
+              <div class="service-desc">Instant contactless access and real-world digital triggers.</div>
+            </article>
+
+            <article class="service-card">
+              <div class="service-top">
+                <div class="service-name">Multilingual Chatbots</div>
+                <div class="service-price">from €1500</div>
+              </div>
+              <div class="service-desc">24/7 lead capture, support and automation logic.</div>
+            </article>
+
+            <article class="service-card">
+              <div class="service-top">
+                <div class="service-name">Full Branding</div>
+                <div class="service-price">from €2500</div>
+              </div>
+              <div class="service-desc">Cohesive, data-driven brand identity system.</div>
+            </article>
+
+            <article class="service-card">
+              <div class="service-top">
+                <div class="service-name">Web Page / Web App</div>
+                <div class="service-price">from €3200</div>
+              </div>
+              <div class="service-desc">Analytics, management and digital infrastructure.</div>
+            </article>
+
+            <article class="service-card">
+              <div class="service-top">
+                <div class="service-name">Custom Project Solution</div>
+                <div class="service-price">under quote</div>
+              </div>
+              <div class="service-desc">Fusion of multiple services into one full project system.</div>
+            </article>
+          </div>
+        </section>
+
+        <section class="panel fade-up delay-4">
+          <div class="panel-head">
+            <div class="panel-title-wrap">
+              <h2>How the process works</h2>
+              <p class="panel-subtitle">Same logic as the brand system: confusion → clarity → automation.</p>
+            </div>
+          </div>
+
+          <div class="steps">
+            <div class="step">
+              <div class="step-num">1</div>
+              <div>
+                <h3>Diagnosis</h3>
+                <p>We identify the real operational problem, channels, friction points and business objective.</p>
+              </div>
+            </div>
+
+            <div class="step">
+              <div class="step-num">2</div>
+              <div>
+                <h3>Service Fit</h3>
+                <p>We map whether the request needs consulting, interface work, chatbot automation, app development or a combined stack.</p>
+              </div>
+            </div>
+
+            <div class="step">
+              <div class="step-num">3</div>
+              <div>
+                <h3>Estimate</h3>
+                <p>A fast first commercial frame is returned with realistic scope and pricing logic.</p>
+              </div>
+            </div>
+
+            <div class="step">
+              <div class="step-num">4</div>
+              <div>
+                <h3>Execution</h3>
+                <p>If aligned, the project moves into activation, build and optimization.</p>
+              </div>
+            </div>
+          </div>
+        </section>
+      </aside>
+    </section>
+
+    <footer class="footer fade-up delay-4">
+      <div class="footer-copy">© Business Bots Solutions 2026 — Automation with purpose, clarity as principle.</div>
+      <div class="footer-links">
+        <a href="https://businessbots.org" target="_blank" rel="noopener noreferrer">Website</a>
+        <a href="https://www.linkedin.com/in/businessbots/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+        <a href="https://www.instagram.com/businessbot.s?igsh=ZmVhNzNlYWNycW4z" target="_blank" rel="noopener noreferrer">Instagram</a>
+      </div>
+    </footer>
+  </main>
+
+  <script>
+    function formatNumber(value) {
+      if (!value) return null;
+      const num = Number(value);
+      if (Number.isNaN(num)) return value;
+      return new Intl.NumberFormat('en-US').format(num);
+    }
+
+    function getSelectedText(id) {
+      const el = document.getElementById(id);
+      if (!el || el.selectedIndex <= 0) return null;
+      return el.options[el.selectedIndex].text;
+    }
+
+    function getCheckedServices() {
+      return Array.from(document.querySelectorAll('.check input:checked')).map(input => input.value);
+    }
+
+    function buildWhatsAppMessage() {
+      const name = document.getElementById('clientName').value.trim();
+      const company = document.getElementById('companyName').value.trim();
+      const phone = document.getElementById('clientPhone').value.trim();
+      const email = document.getElementById('clientEmail').value.trim();
+      const businessType = getSelectedText('businessType');
+      const projectGoal = getSelectedText('projectGoal');
+      const timeline = getSelectedText('timeline');
+      const projectStage = getSelectedText('projectStage');
+      const budgetMin = document.getElementById('budgetMin').value.trim();
+      const budgetMax = document.getElementById('budgetMax').value.trim();
+      const details = document.getElementById('projectDetails').value.trim();
+      const services = getCheckedServices();
+
+      let msg = "Hi Business Bots Solutions, I want a quick project estimate.\n\n";
+      msg += "━━━━━━━━━━━━━━━━\n";
+      msg += "QUICK QUOTE REQUEST\n";
+      msg += "━━━━━━━━━━━━━━━━\n\n";
+      msg += "Name: " + (name || "Not specified") + "\n";
+      msg += "Company: " + (company || "Not specified") + "\n";
+      msg += "Phone: " + (phone || "Not specified") + "\n";
+      msg += "Email: " + (email || "Not specified") + "\n\n";
+      msg += "Business type: " + (businessType || "Not specified") + "\n";
+      msg += "Main objective: " + (projectGoal || "Not specified") + "\n";
+      msg += "Timeline: " + (timeline || "Not specified") + "\n";
+      msg += "Current stage: " + (projectStage || "Not specified") + "\n";
+      msg += "Services of interest: " + (services.length ? services.join(", ") : "Not specified") + "\n";
+
+      if (budgetMin || budgetMax) {
+        msg += "Budget range: " + (formatNumber(budgetMin) || "—") + " → " + (formatNumber(budgetMax) || "—") + " €\n";
+      } else {
+        msg += "Budget range: Not specified\n";
+      }
+
+      msg += "\nProject details:\n" + (details || "Not specified");
+
+      return msg;
+    }
+
+    function updateWhatsAppLink() {
+      const msg = buildWhatsAppMessage();
+      document.getElementById('waBtn').href = "https://wa.me/34666759214?text=" + encodeURIComponent(msg);
+    }
+
+    function updateMailLink() {
+      const msg = buildWhatsAppMessage();
+      const subject = "Quick Quote Request — Business Bots Solutions";
+      document.getElementById('mailBtn').href =
+        "mailto:info@businessbots.org?subject=" + encodeURIComponent(subject) +
+        "&body=" + encodeURIComponent(msg);
+    }
+
+    function updateLinks() {
+      updateWhatsAppLink();
+      updateMailLink();
+    }
+
+    document.querySelectorAll('input, select, textarea').forEach(el => {
+      el.addEventListener('input', updateLinks);
+      el.addEventListener('change', updateLinks);
+    });
+
+    updateLinks();
+  </script>
+</body>
+</html>
